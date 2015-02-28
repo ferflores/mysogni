@@ -1,12 +1,20 @@
 <template name="login">
-	<div class="row">
-		{{> mysogniHeader}}
-		<div class="col-sm-12">
-			<form class="loginForm">
-				<input type="text" placeholder="user" />
-				<input type="text" placeholder="password" />
-				<button class="btn btn-info" > Iniciar </button>
-			</form>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="well page">
+				<form class="form-horizontal loginForm">
+					<fieldset>
+						<legend>Login</legend>
+						<div class="form-group">
+							<input class="form-control empty" type="text" placeholder="user" />
+							<input class="form-control empty" type="text" placeholder="password" />
+						</div>
+						<button class="form-control btn btn-primary" > Iniciar </button>
+					</fieldset>
+				</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>

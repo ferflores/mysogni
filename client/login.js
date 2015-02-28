@@ -1,6 +1,6 @@
 Template.login.events({
 	"submit .loginForm": function(event){
-		var a = event;
+		Router.go('home');
 		return false;
 	}
 });
