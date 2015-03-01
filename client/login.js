@@ -20,6 +20,26 @@ Template.login.events({
     },
 });
 
+Template.login.helpers({
+	strings: function(){
+		return {
+				loginError: function(){
+					return Session.get('loginError');
+				},
+				chooseLanguageText: function(){
+					return Meteor.I18n().t("Comienza a estudiar tus sueños");
+				},
+				switchLanguageText: function(){
+					return Meteor.I18n().t("Cambiar lenguaje");
+				},
+				loginFacebookText: function(){
+					return Meteor.I18n().t("Inicia sesión con facebook");
+				}
+			}
+	}
+});
+
+
 Template.login.rendered = function(){
 	if(Cookie.get('lang')){
 		Meteor.I18n().lang(Cookie.get('lang'));
