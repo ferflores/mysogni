@@ -9,3 +9,10 @@ autopublish
 insecure
 iron:router
 velocityjs:velocityjs
+accounts-ui
+accounts-facebook
+less
+txgruppi:simple-i18n
+chuangbo:cookie
+service-configuration
+meteorhacks:fast-render

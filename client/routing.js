@@ -3,13 +3,18 @@ Router.configure({
 });
 
 Router.map(function(){
-	this.route('login', { path:'/'});
+	this.route('login', { path:'/', fastRender:true});
 	this.route('home');
 })
 
 Router.onBeforeAction(function(){
-	 $('#mainContent').css('display', 'none');
-	 this.next();
+	if (!Meteor.userId()) {
+    	this.render('login');
+  	} else {
+    $('#mainContent').css('display', 'none');
+		this.next();
+  }
+
 });
 
 Router.onAfterAction(function(){

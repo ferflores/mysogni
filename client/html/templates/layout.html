@@ -4,7 +4,9 @@
 	</head>
 
 	<body id="mainContent">
-		{{> navbar}}
+		{{#if currentUser}}
+			{{> navbar}}
+		{{/if}}
 		{{> yield}}
 	</body>
 </template>

@@ -1,19 +1,32 @@
 <template name="login">
-	<div class="container">
+	<div class="container sky-background">
 		<div class="row">
+			<div class="col-xs-12 centered-content">
+				<h1>MySogni</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 centered-content">
+				<h4>{{chooseLanguageText}}</h4>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 centered-content">
+				<button class="fb-login btn btn-primary">{{loginFacebookText}}</button>
+			</div>
+		</div>
+		{{#if loginError}}
+		<div class="row">
+			<div class="col-xs-12 centered-content">
+				<h3 class="label label-danger">
+					{{loginError}}
+				</h3>
+			</div>
+		</div>
+		{{/if}}
+		<div class="row centered-content">
 			<div class="col-xs-12">
-				<div class="well page">
-				<form class="form-horizontal loginForm">
-					<fieldset>
-						<legend>Login</legend>
-						<div class="form-group">
-							<input class="form-control empty" type="text" placeholder="user" />
-							<input class="form-control empty" type="text" placeholder="password" />
-						</div>
-						<button class="form-control btn btn-primary" > Iniciar </button>
-					</fieldset>
-				</form>
-				</div>
+				<button class="btn btn-warning switch-language"> {{switchLanguageText}} </button>
 			</div>
 		</div>
 	</div>
