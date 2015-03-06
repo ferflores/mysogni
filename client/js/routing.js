@@ -3,20 +3,21 @@ Router.configure({
 });
 
 Router.map(function(){
-	this.route('login', { path:'/', fastRender:true});
+	this.route('login', { path:'/'});
 	this.route('home');
 })
 
 Router.onBeforeAction(function(){
 	if (!Meteor.userId()) {
     	this.render('login');
-  	} else {
-    $('#mainContent').css('display', 'none');
-		this.next();
-  }
+  	}else{
+  		 $('#mainContent').css('display', 'none');
+  	}
 
+  	this.next();
 });
 
 Router.onAfterAction(function(){
-	$('#mainContent').velocity('transition.fadeIn',1000)
+	//Running twice?
+	//$('#mainContent').velocity('transition.fadeIn',1000)
 });

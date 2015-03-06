@@ -41,6 +41,8 @@ Template.login.helpers({
 
 
 Template.login.rendered = function(){
+	$('#mainContent').velocity('transition.fadeIn',1000);
+	
 	if(Cookie.get('lang')){
 		Meteor.I18n().lang(Cookie.get('lang'));
 	}else{
