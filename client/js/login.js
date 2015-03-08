@@ -42,14 +42,8 @@ Template.login.helpers({
 
 Template.login.rendered = function(){
 	$('#mainContent').velocity('transition.fadeIn',1000);
-	
-	if(Cookie.get('lang')){
-		Meteor.I18n().lang(Cookie.get('lang'));
-	}else{
-		Meteor.I18n().lang("es");
-	}
 
-	if(Meteor.user()){
+	if(Meteor.userId()){
 		Router.go('home');
 	}
 }

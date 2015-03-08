@@ -1,8 +1,14 @@
 <template name="home">
 	<div class="container">
-		<div class="bs-component">
-			<div class="alert alert-dismissible alert-warning">
-  				<strong>Heads up!</strong> This <a href="#" class="alert-link">alert needs your attention</a>, but it's not super important.
+		<div class="bs-component random-message-container">
+			<div id="randomMessage" class="alert alert-warning">
+				<table>
+					<tr>
+						<td><span class="random message glyphicon glyphicon-info-sign"></span></td>
+						<td><span class="random-message" id="randomMessageText"></span></td>
+					</tr>
+				</table>
+				{{randomMessage}}
 			</div>
 		</div>
 	</div>

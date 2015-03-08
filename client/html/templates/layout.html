@@ -1,12 +1,9 @@
 <template name="layout">
-	<head>
-		<title>mysogni</title>
-	</head>
 
-	<body id="mainContent">
+	<div id="mainContent" class="container-fluid no-side-padding">
 		{{#if currentUser}}
 			{{> navbar}}
 		{{/if}}
 		{{> yield}}
-	</body>
+	</div>
 </template>
