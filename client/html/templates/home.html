@@ -1,6 +1,22 @@
 <template name="home">
 	<div class="container">
 		<div class="bs-component random-message-container">
+
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="page-title">¿Qué soñaste?</h3>
+				</div>
+				<div class="col-sm-12">
+					<textarea name="dreamText" class="form-control dream-input" id="dreamText" rows="5" placeholder="Escribe aquí tu sueño"></textarea>
+				</div>
+				<div class="col-sm-4">
+					<button class="btn btn-success form-control save-dream-btn">
+					<span class="glyphicon glyphicon-plus-sign"></span>
+						Guardar sueño
+					</button>
+				</div>
+			</div>
+
 			<div id="randomMessage" class="alert alert-warning">
 				<table>
 					<tr>
