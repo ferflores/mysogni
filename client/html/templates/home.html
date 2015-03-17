@@ -7,12 +7,27 @@
 					<h3 class="page-title">¿Qué soñaste?</h3>
 				</div>
 				<div class="col-sm-12">
-					<textarea name="dreamText" class="form-control dream-input" id="dreamText" rows="5" placeholder="Escribe aquí tu sueño"></textarea>
+					<textarea 
+						id="dreamText" 
+						name="dreamText" 
+						class="form-control dream-input" 
+						rows="5" 
+						placeholder="Escribe aquí tu sueño"
+						value={{dreamText}}></textarea>
+				</div>
+				<div class="col-sm-12">
+					{{#if saveDreamError}}
+						<span class="label label-danger">
+							{{saveDreamError}}
+						</span>
+					{{/if}}
 				</div>
 				<div class="col-sm-4">
-					<button class="btn btn-success form-control save-dream-btn">
-					<span class="glyphicon glyphicon-plus-sign"></span>
-						Guardar sueño
+					<button 
+						class="btn btn-success form-control save-dream" {{disabledSaveDream}}>
+							Guardar sueño
+							<span class="glyphicon glyphicon-plus-sign">
+							</span>
 					</button>
 				</div>
 			</div>
@@ -20,8 +35,8 @@
 			<div id="randomMessage" class="alert alert-warning">
 				<table>
 					<tr>
-						<td><span class="random message glyphicon glyphicon-info-sign"></span></td>
-						<td><span class="random-message" id="randomMessageText"></span></td>
+						<td><span class="alert-message glyphicon glyphicon-info-sign"></span></td>
+						<td><span class="alert-message" id="randomMessageText"></span></td>
 					</tr>
 				</table>
 				{{randomMessage}}

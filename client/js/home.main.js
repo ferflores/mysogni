@@ -6,12 +6,24 @@ Meteor.startup(function () {
 	}
 });
 
+Template.home.events({
+	"click .save-dream": function(event){
+		if(!Session.get("dreamText") || Session.get("dreamText").length < 1){
+			//Empty error
+		}else{
+			Router.go("tags");
+		}
+	},
+	"keyup .dream-input": function(event){
+		Session.set("dreamText", event.target.value);
+	}
+});
 
 Template.home.rendered = function(){
 	
 	Meteor.subscribe("wMessages");
 
-	$('#mainContent').velocity('transition.fadeIn',1000);
+	$('#mainContent').velocity('transition.fadeIn', 1000);
 
 }
 
@@ -29,5 +41,13 @@ Template.home.helpers({
 				$("#randomMessageText").text(text);
 			}
 		}
+	},
+
+	'disabledSaveDream': function(){
+		return Session.get("dreamText") ? "" : "disabled";
+	},
+
+	'dreamText': function(){
+		return Session.get("dreamText");
 	}
 });

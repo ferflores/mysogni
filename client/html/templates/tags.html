@@ -1,0 +1,38 @@
+<template name="tags">
+	<div class="container">
+		<div id="randomMessage" class="alert alert-info">
+			<table>
+				<tr>
+					<td><span class="alert-message glyphicon glyphicon-info-sign"></span></td>
+					<td><span class="alert-message"> Crea y asigna etiquetas para que sea más fácil clasificar tus sueños. Por ejemplo: Agua, pasado, futuro, conflicto...</span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<input 
+					type="text" 
+					class="form-control tag-input" 
+					placeholder="Escribe aquí para agregar una etiqueta"
+					maxlength="20">
+				{{#if createTagError}}
+					<span class="label label-danger">
+						{{createTagError}}
+					</span>
+				{{/if}}
+			</div>
+			{{#if creatingTag}}
+				<div class="col-sm-12">
+					{{> blueLoader}}
+				</div>
+			{{else}}
+				<div class="col-sm-2">
+					<button class="btn btn-info form-control create-tag"> 
+						Crear etiqueta	
+						<span class="glyphicon glyphicon-plus-sign"> </span>
+					</button>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+</template>
