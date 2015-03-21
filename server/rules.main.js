@@ -15,9 +15,9 @@ Tags.allow({
 		return userId;
 	},
 	update:function(userId, doc){
-		return false;
+		return userId == doc.userId;
 	},
     remove: function(userId, doc) {
-		return userId;
+		return userId == doc.userId;
 	}
 });

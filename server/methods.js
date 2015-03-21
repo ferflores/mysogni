@@ -38,6 +38,17 @@ Meteor.methods({
 		}
 
 		throw new Error("Not authorized");
+	},
+
+	'getUserTagCount': function(){
+		if(Meteor.userId()){
+
+			var count = Tags.find({userId:Meteor.userId()}).count();
+
+			return count;
+		}
+
+		throw new Error("Not authorized");
 	}
 });
 

@@ -1,7 +1,5 @@
-/*Meteor.publish("wMessages", function(){
+Meteor.publish("userTags", function(){
 	if(this.userId){
-		return WelcomeMsgs.find({});
+		return Tags.find({userId:this.userId});
 	}
-	return [];
-})*/
-
+});

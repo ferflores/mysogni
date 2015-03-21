@@ -1,4 +1,5 @@
 Template.tags.rendered = function(){
+	Meteor.subscribe("userTags");
 
 	if(Session.get("dreamText")){
 		$('#mainContent').velocity('transition.fadeIn', 1000);
@@ -25,6 +26,14 @@ Template.tags.helpers({
 
 	"creatingTag": function(){
 		return Session.get("creatingTag");
+	},
+
+	"availableUserTags": function(){
+		return Tags.find({userId:Meteor.userId()}).count()>0;
+	},
+
+	"dreamText": function(){
+		return Session.get("dreamText");
 	}
 });
 
@@ -47,7 +56,7 @@ Template.tags.Utils = {
 			if(error){
 				Session.set("createTagError","Error al crear etiqueta");
 			}else{
-
+				$(".tag-input").val('');
 			}
 		}
 	}
