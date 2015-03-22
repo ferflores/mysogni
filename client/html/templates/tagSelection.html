@@ -1,3 +1,42 @@
 <template name="tagSelection">
-	
+	<div class="col-sm-12">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<span class="glyphicon glyphicon-tag"></span>
+				<span>Asigna tus etiquetas</span>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<input type="text" class="form-control search-tag" placeholder="Buscar etiqueta" maxlength="20">
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-12">
+							<table class="tag-table">
+							{{#if searchedTagsAvailable}}
+								<tr>
+									{{#each searchedTags}}
+									<td>
+										<span class="label label-primary searched-tag">{{text}} <span class="glyphicon glyphicon-plus-sign"></span></span>
+									</td>
+									{{/each}}
+								</tr>
+							{{else}}
+								<tr>
+									{{#each userTags}}
+									<td>
+										<span class="label label-primary searched-tag">{{text}} <span class="glyphicon glyphicon-plus-sign"></span></span>
+									</td>
+									{{/each}}
+								</tr>
+							{{/if}}
+							</table>
+							</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </template>

@@ -1,6 +1,6 @@
 Meteor.methods({
 	'getRandomMessage': function(){
-		if(Meteor.userId()){
+		if(this.userId){
 			var array = WelcomeMsgs.find().fetch();
 			var randomIndex = Math.floor( Math.random() * array.length );
 			var element = array[randomIndex];
@@ -12,7 +12,7 @@ Meteor.methods({
 
 	'createTag' : function(tag){
 
-		if(Meteor.userId()){
+		if(this.userId){
 
 			tag.text = Meteor.ValidationUtils.cleanTag(tag.text);
 
@@ -41,19 +41,27 @@ Meteor.methods({
 	},
 
 	'getUserTagCount': function(){
-		if(Meteor.userId()){
+		if(this.userId){
 
-			var count = Tags.find({userId:Meteor.userId()}).count();
+			var count = Tags.find({userId:this.userId}).count();
 
 			return count;
 		}
 
 		throw new Error("Not authorized");
+	},
+
+	'searchTag': function(request){
+		if(this.userId){
+			var tags = Tags.find({text:{'$regex':request.text},
+				_id:{$nin:request.assignedTags}}, {limit:3}).fetch();
+			return tags;
+		}
 	}
 });
 
 Meteor.ValidationUtils = {
 	cleanTag: function(tagText){
-		return tagText.replace(/\s+/g," ")
+		return tagText.replace(/\s+/g," ").substring(0,20);
 	}
 };

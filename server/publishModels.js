@@ -1,5 +1,5 @@
 Meteor.publish("userTags", function(){
 	if(this.userId){
-		return Tags.find({userId:this.userId});
+		return Tags.find({userId:this.userId}, {limit:500});
 	}
 });

@@ -1,8 +1,13 @@
 Template.tags.rendered = function(){
 	Meteor.subscribe("userTags");
 
+	if(!Session.get("assignedTags")){
+		Session.set("assignedTags", []);
+	}
+
 	if(Session.get("dreamText")){
 		$('#mainContent').velocity('transition.fadeIn', 1000);
+		Template.tags.Utils.analizeText();
 	}else{
 		Router.go("home");
 	}
@@ -12,10 +17,27 @@ Template.tags.events({
 	"click .create-tag": function(){
 		Template.tags.Utils.createTag(Template.tags.callBacks.createTagCallBack);
 	},
+
 	"keypress .tag-input": function(event){
 		if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){
 			Template.tags.Utils.createTag(Template.tags.callBacks.createTagCallBack);
 		}
+	},
+
+	"click .edit-dream": function(){
+		Router.go("home");
+	},
+
+	"click .assigned-tag": function(){
+		var assignedTags = Session.get("assignedTags");
+
+		for (var i = 0; i < assignedTags.length; i++) {
+			if(assignedTags[i]._id == this._id){
+				assignedTags.splice(i, 1);
+			}
+		};
+
+		Session.set("assignedTags", assignedTags);
 	}
 });
 
@@ -29,11 +51,23 @@ Template.tags.helpers({
 	},
 
 	"availableUserTags": function(){
-		return Tags.find({userId:Meteor.userId()}).count()>0;
+		Session.set("availableUserTags", Tags.find({userId:Meteor.userId()}, {limit:1}).count() > 0);
+		return Session.get("availableUserTags");
 	},
 
 	"dreamText": function(){
-		return Session.get("dreamText");
+		var dreamText = Session.get("dreamText");
+		var displayText = dreamText;
+
+		if(dreamText && dreamText.length > 150){
+			displayText = dreamText.substring(0, 150) + "...";
+		}
+
+		return displayText;
+	},
+
+	"assignedTags": function(){
+		return Session.get("assignedTags");
 	}
 });
 
@@ -59,6 +93,18 @@ Template.tags.Utils = {
 				$(".tag-input").val('');
 			}
 		}
+	},
+
+	analizeText: function(){
+		var text = Session.get("dreamText");
+
+		var words = text.split(" ");
+
+		for (var i = 0; i < words.length; i++) {
+			if(words[i].length > 4){
+				//TODO: Get possible tags
+			}
+		};
 	}
 }
 

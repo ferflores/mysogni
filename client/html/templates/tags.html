@@ -18,29 +18,32 @@
 					<div class="panel-heading">
 						<span class="glyphicon glyphicon-cloud"></span>
 						<span>Tu sueño</span>
+						<button class="btn btn-default btn-sm edit-dream"> Editar
+						<span class="glyphicon glyphicon-pencil"></span>
+						</button>
 					</div>
 					<div class="panel-body">
 						{{dreamText}}
 					</div>
 					<div class="panel-footer">
-						<button class="btn btn-default"> Editar
-						<span class="glyphicon glyphicon-pencil"></span>
-						</button>
+						{{#each assignedTags}}
+							<div class="label-container">
+								<span class="label label-success assigned-tag">{{text}} <span class="glyphicon glyphicon-remove"></span></span>
+							</div>
+						{{/each}}
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="row">
-			{{#if availableUserTags}}
-				{{> tagSelection}}
-			{{/if}}
+			{{> tagSelection}}
 		</div>
 		<div class="row">
 			<div class="col-sm-6">
 				<input 
 					type="text" 
 					class="form-control tag-input" 
-					placeholder="Escribe aquí para agregar una etiqueta"
+					placeholder="Escribe aquí para crear una etiqueta"
 					maxlength="20">
 				{{#if createTagError}}
 					<span class="label label-danger">

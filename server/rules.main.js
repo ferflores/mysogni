@@ -12,12 +12,12 @@ WelcomeMsgs.allow({
 
 Tags.allow({
 	insert: function (userId, doc) {
-		return userId;
+		return false;
 	},
 	update:function(userId, doc){
-		return userId == doc.userId;
+		return false;
 	},
     remove: function(userId, doc) {
-		return userId == doc.userId;
+		return false;
 	}
 });
