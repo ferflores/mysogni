@@ -20,6 +20,10 @@ Meteor.methods({
 				return {error: "INV_CHAR"};
 			}
 
+			if(tag.text.length > 15){
+				return {error: "MAX_LENGTH"}
+			}
+
 			var existingTag = Tags.findOne({text:tag.text.toLowerCase()});
 
 			if(!existingTag){
