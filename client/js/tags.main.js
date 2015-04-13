@@ -1,5 +1,6 @@
 Template.tags.rendered = function(){
 	Meteor.subscribe("userTags");
+	Meteor.subscribe("tagCategories");
 
 	if(!Session.get("assignedTags")){
 		Session.set("assignedTags", []);
@@ -15,12 +16,12 @@ Template.tags.rendered = function(){
 
 Template.tags.events({
 	"click .create-tag": function(){
-		Template.tags.Utils.createTag(Template.tags.callBacks.createTagCallBack);
+		Template.tags.Utils.createTag();
 	},
 
 	"keypress .tag-input": function(event){
 		if((event.which && event.which == 13) || (event.keyCode && event.keyCode == 13)){
-			Template.tags.Utils.createTag(Template.tags.callBacks.createTagCallBack);
+			Template.tags.Utils.createTag();
 		}
 	},
 
@@ -51,7 +52,13 @@ Template.tags.helpers({
 	},
 
 	"availableUserTags": function(){
-		Session.set("availableUserTags", Tags.find({userId:Meteor.userId()}, {limit:1}).count() > 0);
+		var userTags = [];
+		var existingUserTags = UserTags.findOne({userId:Meteor.userId()});
+		if(existingUserTags){
+			userTags = existingUserTags.tags;
+		}
+		Session.set("availableUserTags", userTags);
+
 		return Session.get("availableUserTags");
 	},
 
@@ -68,6 +75,15 @@ Template.tags.helpers({
 
 	"assignedTags": function(){
 		return Session.get("assignedTags");
+	},
+
+	"tagCategories": function(){
+		var categories = TagCategories.find({});
+		var translatedCategories = jQuery.map(categories.fetch(), function(e){
+			return {value:e.value, text:e[Meteor.I18n().lang()]}
+		});
+
+		return translatedCategories;
 	}
 });
 
@@ -90,6 +106,9 @@ Template.tags.Utils = {
 			if(error){
 				Session.set("createTagError","Error al crear etiqueta");
 			}else{
+				var newAssignedTags = Session.get("assignedTags") || [];
+				newAssignedTags.push(data);
+				Session.set("assignedTags", newAssignedTags);
 				$(".tag-input").val('');
 			}
 		}
@@ -105,11 +124,5 @@ Template.tags.Utils = {
 				//TODO: Get possible tags
 			}
 		};
-	}
-}
-
-Template.tags.callBacks = {
-	createTagCallBack: function(success, error){
-		console.log("tag created");
 	}
 }

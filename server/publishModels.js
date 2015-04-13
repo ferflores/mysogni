@@ -1,5 +1,11 @@
 Meteor.publish("userTags", function(){
 	if(this.userId){
-		return Tags.find({userId:this.userId}, {limit:500});
+		return UserTags.find({userId:this.userId});
+	}
+});
+
+Meteor.publish("tagCategories", function(){
+	if(this.userId){
+		return TagCategories.find({}, {limit:50});
 	}
 });

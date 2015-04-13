@@ -1,14 +1,20 @@
 Template.tagSelection.rendered = function(){
 	Session.set("searchedTags", []);
+
+	Meteor.call("getThreeRandomTags", {userId:Meteor.userId()}, randomTagsCallBack);
+
+	function randomTagsCallBack(error, data){
+		if(!error && data && data.length > 0){
+			if(!Session.get("assignedTags") || Session.get("assignedTags").length < 1){
+				Session.set("searchedTags", data);
+			}
+		}
+	}
 }
 
 Template.tagSelection.helpers({
 	"availableUserTags": function(){
 		return Session.get("availableUserTags");
-	},
-
-	"userTags": function(){
-		return Tags.find({userId:Meteor.userId(), _id:{$nin:Template.tagSelection.Utils.getAssignedTagsIds()}}, {limit:3});
 	},
 
 	"searchedTagsAvailable": function(){
@@ -25,24 +31,35 @@ Template.tagSelection.events({
 		if($(".search-tag").val().length > 0 && $(".search-tag").val().length < 20){
 			Template.tagSelection.Utils.searchTag($(".search-tag").val());
 		}else{
-			Session.set("searchedTags", []);
+			//Session.set("searchedTags", []);
 		}
 	},
 
 	"click .searched-tag":function(){
 		var newAssignedTags = Session.get("assignedTags") || [];
-		newAssignedTags.push(this);
-		Session.set("assignedTags", newAssignedTags);
+		var addTag = true;
 
-		var searchedTags = Session.get("searchedTags");
-
-		for (var i = 0; i < searchedTags.length; i++) {
-			if(searchedTags[i]._id == this._id){
-				searchedTags.splice(i, 1);
+		for (var i = 0; i < newAssignedTags.length; i++) {
+			if(newAssignedTags[i]._id == this._id){
+				addTag = false;
+				break;
 			}
 		};
 
-		Session.set("searchedTags", searchedTags);
+		if(addTag){
+			newAssignedTags.push(this);
+			Session.set("assignedTags", newAssignedTags);
+
+			var searchedTags = Session.get("searchedTags");
+
+			for (var i = 0; i < searchedTags.length; i++) {
+				if(searchedTags[i]._id == this._id){
+					searchedTags.splice(i, 1);
+				}
+			};
+
+			Session.set("searchedTags", searchedTags);
+		}
 	}
 });
 
@@ -50,11 +67,14 @@ Template.tagSelection.Utils = {
 	searchTag: function(text){
 
 		Meteor.call("searchTag", 
-			{text:text, assignedTags:this.getAssignedTagsIds()}, searchTagCallBack);
+			{userId:Meteor.userId(),
+			 text:text, assignedTags:this.getAssignedTagsIds()}, searchTagCallBack);
 
 		function searchTagCallBack(error, data){
 			if(!error && data && data.length > 0){
 				Session.set("searchedTags", data);
+			}else{
+				Session.set("searchedTags", []);
 			}
 		}
 	},
