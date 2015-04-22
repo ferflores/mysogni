@@ -6,6 +6,7 @@ Router.map(function(){
 	this.route('login', { path:'/'});
 	this.route('home');
 	this.route('tags');
+	this.route('faces');
 })
 
 Router.onBeforeAction(function(){

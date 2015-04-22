@@ -11,7 +11,7 @@ Template.home.events({
 		if(!Session.get("dreamText") || Session.get("dreamText").length < 1){
 			//Empty error
 		}else{
-			Router.go("tags");
+			Router.go("faces");
 		}
 	},
 	"keyup .dream-input": function(event){

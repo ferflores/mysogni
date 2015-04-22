@@ -84,6 +84,10 @@ Template.tags.helpers({
 		});
 
 		return translatedCategories;
+	},
+
+	"selectedFace": function(){
+		return Session.get('selectedFace').file;
 	}
 });
 
