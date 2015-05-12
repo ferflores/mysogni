@@ -28,7 +28,7 @@ Meteor.methods({
 				tagId = existingTag._id;
 			}
 
-			return Meteor.tagMethodsUtils.createUserTag(tagId, tag.text);
+			return Meteor.tagMethodsUtils.createUserTag(tagId, tag);
 		}
 
 		throw new Error("Not authorized");
@@ -116,7 +116,7 @@ Meteor.ValidationUtils = {
 };
 
 Meteor.tagMethodsUtils = {
-	createUserTag: function(tagId, tagText){
+	createUserTag: function(tagId, tagData){
 		var userTagsId = null;
 		var currentUserTags = [];
 
@@ -143,7 +143,12 @@ Meteor.tagMethodsUtils = {
 		}
 
 		if(addTag){
-			var newUserTag = {_id:tagId, text:tagText, addedOn: new Date()};
+			var newUserTag = {
+				_id:tagId, 
+				text:tagData.text, 
+				addedOn: new Date(), 
+				category: tagData.category
+			};
 			currentUserTags.push(newUserTag);
 
 			UserTags.update({_id:userTagsId},

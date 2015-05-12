@@ -7,6 +7,7 @@ Router.map(function(){
 	this.route('home');
 	this.route('tags');
 	this.route('faces');
+	this.route('dreamList');
 })
 
 Router.onBeforeAction(function(){

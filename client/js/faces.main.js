@@ -1,11 +1,11 @@
-Template.faces.rendered = function(){
-
-	if(Session.get("dreamText")){
-		$('#mainContent').velocity('transition.fadeIn', 1000);
-
-	}else{
+Template.faces.onCreated(function(){
+	if(!Session.get("dreamText")){
 		Router.go("home");
 	}
+});
+
+Template.faces.rendered = function(){
+	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
 Template.faces.events({

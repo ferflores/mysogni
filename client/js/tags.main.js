@@ -1,3 +1,13 @@
+Template.tags.onCreated(function(){
+	if(!Session.get("dreamText")){
+		Router.go("home");
+	}
+
+	if(!Session.get('selectedFace')){
+		Router.go("faces");
+	}
+});
+
 Template.tags.rendered = function(){
 	Meteor.subscribe("userTags");
 	Meteor.subscribe("tagCategories");
@@ -6,12 +16,7 @@ Template.tags.rendered = function(){
 		Session.set("assignedTags", []);
 	}
 
-	if(Session.get("dreamText")){
-		$('#mainContent').velocity('transition.fadeIn', 1000);
-		Template.tags.Utils.analizeText();
-	}else{
-		Router.go("home");
-	}
+	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
 Template.tags.events({
@@ -39,6 +44,10 @@ Template.tags.events({
 		};
 
 		Session.set("assignedTags", assignedTags);
+	},
+
+	"click .save-dream": function(){
+		Router.go("dreamList",{}, {query:"new=1"});
 	}
 });
 
@@ -87,7 +96,11 @@ Template.tags.helpers({
 	},
 
 	"selectedFace": function(){
-		return Session.get('selectedFace').file;
+		var file = "";
+		if(Session.get('selectedFace')){
+			file = Session.get('selectedFace').file;
+		}
+		return file;
 	}
 });
 
@@ -95,6 +108,7 @@ Template.tags.Utils = {
 	createTag: function(callBack){
 		Session.set("createTagError","");
 		var tagText = $(".tag-input").val();
+		var category = $(".tag-category").val();
 
 		if(tagText.length < 1){
 			Session.set("createTagError","Escribe el nombre de la etiqueta");
@@ -102,7 +116,7 @@ Template.tags.Utils = {
 			Session.set("createTagError","Solo números y letras por favor");
 		}else{
 			Session.set("creatingTag", true);
-			Meteor.call("createTag", {text:tagText}, createTagCallBack);
+			Meteor.call("createTag", {text:tagText, category: category}, createTagCallBack);
 		}
 
 		function createTagCallBack(error, data){
