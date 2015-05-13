@@ -46,5 +46,31 @@ Meteor.startup(function(){
 			'es':'Otro',
 			'en': 'Other'
 		});
+	};
+
+	if(DreamMoods.find({}).fetch.length < 1){
+		DreamMoods.insert({
+			file:"happy.png",
+			value: 0,
+			stringValue: "happy"
+		});
+
+		DreamMoods.insert({
+			file:"sad.png",
+			value: 1,
+			stringValue: "sad"
+		});
+
+		DreamMoods.insert({
+			file:"angry.png",
+			value: 2,
+			stringValue: "angry"
+		});
+
+		DreamMoods.insert({
+			file:"scared.png",
+			value: 3,
+			stringValue: "scared"
+		});
 	}
 });

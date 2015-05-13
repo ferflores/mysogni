@@ -9,3 +9,9 @@ Meteor.publish("tagCategories", function(){
 		return TagCategories.find({}, {limit:50});
 	}
 });
+
+Meteor.publish("dreamMoods", function(){
+	if(this.userId){
+		return DreamMoods.find({}, {limit: 50});
+	}
+});

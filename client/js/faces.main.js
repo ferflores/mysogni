@@ -5,6 +5,8 @@ Template.faces.onCreated(function(){
 });
 
 Template.faces.rendered = function(){
+	Meteor.subscribe("dreamMoods");
+
 	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
@@ -17,17 +19,6 @@ Template.faces.events({
 
 Template.faces.helpers({
 	faces: function(){
-		return Template.faces.Utils.getFaces();
+		return DreamMoods.find({});
 	}
 });
-
-Template.faces.Utils = {
-	'getFaces': function(){
-		return [
-			{file:"happy.png", value:0},
-			{file:"sad.png", value:1},
-			{file:"angry.png", value:2},
-			{file:"scared.png", value:3},
-		];
-	}
-};

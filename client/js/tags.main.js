@@ -47,7 +47,9 @@ Template.tags.events({
 	},
 
 	"click .save-dream": function(){
-		Router.go("dreamList",{}, {query:"new=1"});
+
+		//Router.go("dreamList",{}, {query:"new=1"});
+		Template.tags.Utils.saveDream();
 	}
 });
 
@@ -105,7 +107,7 @@ Template.tags.helpers({
 });
 
 Template.tags.Utils = {
-	createTag: function(callBack){
+	createTag: function(){
 		Session.set("createTagError","");
 		var tagText = $(".tag-input").val();
 		var category = $(".tag-category").val();
@@ -129,6 +131,20 @@ Template.tags.Utils = {
 				Session.set("assignedTags", newAssignedTags);
 				$(".tag-input").val('');
 			}
+		}
+	},
+
+	saveDream: function(callBack){
+		Meteor.call("saveDream", 
+			{
+				text:Session.get("dreamText"), 
+				mood: Session.get("selectedFace"), 
+				assignedTags: Session.get("assignedTags")
+			}, createDreamCallBack);
+
+		function createDreamCallBack(error, data){
+			console.log("error: "+error),
+			console.log("data: "+data);
 		}
 	},
 
