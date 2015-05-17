@@ -47,8 +47,6 @@ Template.tags.events({
 	},
 
 	"click .save-dream": function(){
-
-		//Router.go("dreamList",{}, {query:"new=1"});
 		Template.tags.Utils.saveDream();
 	}
 });
@@ -143,8 +141,14 @@ Template.tags.Utils = {
 			}, createDreamCallBack);
 
 		function createDreamCallBack(error, data){
-			console.log("error: "+error),
-			console.log("data: "+data);
+			if(error){
+				Modals.errorModal("Error al guardar sueño",{error:error});
+			}else{
+				Session.set("dreamText", null);
+				Session.set("assignedTags", []);
+				Session.set("selectedFace", null);
+				Router.go("dreamList",{}, {query:"new=1"});
+			}
 		}
 	},
 

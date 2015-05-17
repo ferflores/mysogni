@@ -1,8 +1,10 @@
 Meteor.startup(function(){
 	Tags._ensureIndex({text:1});
 	Tags._ensureIndex({userId:1});
-	UserTags._ensureIndex({userId:1});
-	TagCategories._ensureIndex({value:1});
+	UserTags._ensureIndex({userId:1}, {unique: true, dropDups: true})
+	TagCategories._ensureIndex({value:1}, {unique: true, dropDups: true});
+	DreamMoods._ensureIndex({value: 1}, {unique: true, dropDups: true});
+	Dreams._ensureIndex({userId:1, createdOn:1});
 
 	if (TagCategories.find({}).fetch().length < 1){
 		TagCategories.insert({
@@ -48,7 +50,7 @@ Meteor.startup(function(){
 		});
 	};
 
-	if(DreamMoods.find({}).fetch.length < 1){
+	if(DreamMoods.find({}).fetch().length < 1){
 		DreamMoods.insert({
 			file:"happy.png",
 			value: 0,

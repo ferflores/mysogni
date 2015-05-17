@@ -15,3 +15,9 @@ Meteor.publish("dreamMoods", function(){
 		return DreamMoods.find({}, {limit: 50});
 	}
 });
+
+Meteor.publish("dreams", function(){
+	if(this.userId){
+		return Dreams.find({userId:this.userId}, {limit: 50});
+	}
+});

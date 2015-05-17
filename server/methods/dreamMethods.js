@@ -1,6 +1,5 @@
 Meteor.methods({
 	'saveDream' : function(dream){
-
 		if(this.userId){
 			
 			var dreamText = dream.text;
@@ -43,6 +42,20 @@ Meteor.methods({
 			}else{
 				assignedTags = [];
 			}
+
+			var tagIds = [];
+			for (var i = 0; i < assignedTags.length; i++) {
+				tagIds.push(assignedTags[i]._id);
+			};
+
+			Dreams.insert({
+				userId:this.userId,
+				text:dreamText,
+				mood:dreamMood.value,
+				tags:tagIds,
+				createdOn: new Date(),
+				dreamedOn: null
+			});
 
 			return 1;
 		}

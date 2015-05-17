@@ -45,3 +45,15 @@ DreamMoods.allow({
 		return false;
 	}
 });
+
+Dreams.allow({
+	insert: function (userId, doc) {
+		return (userId && doc.userId === userId);
+	},
+	update:function(userId, doc){
+		return (userId && doc.userId === userId);
+	},
+    remove: function(userId, doc) {
+		return (userId && doc.userId === userId);
+	}
+});

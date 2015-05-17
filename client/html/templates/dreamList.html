@@ -9,6 +9,21 @@
 				</div>
 			</div>
 		{{/if}}
+		<div class="row">
+			{{#each dreams}}
+				<div class="col-sm-12">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>{{createdOn}}</td>
+								<td>{{text}}</td>
+								<td><img src="" alt=""></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			{{/each}}
+		</div>
 	</div>
 
 </template>

@@ -20,6 +20,10 @@ Template.home.events({
 });
 
 Template.home.rendered = function(){
+
+	if(!Meteor.userId()){
+		Router.go("login");
+	}
 	
 	Meteor.subscribe("wMessages");
 
