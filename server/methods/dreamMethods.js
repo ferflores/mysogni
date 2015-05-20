@@ -51,7 +51,7 @@ Meteor.methods({
 			Dreams.insert({
 				userId:this.userId,
 				text:dreamText,
-				mood:dreamMood.value,
+				mood:{moodId:dreamMood.value, fileName:dreamMood.file},
 				tags:tagIds,
 				createdOn: new Date(),
 				dreamedOn: null

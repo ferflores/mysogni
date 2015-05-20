@@ -10,6 +10,6 @@ Template.dreamList.helpers({
 	},
 
 	"dreams": function(){
-		return Dreams.find({});
+		return Dreams.find({},{sort:{createdOn:-1}});
 	}
 });
