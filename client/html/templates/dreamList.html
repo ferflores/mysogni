@@ -11,13 +11,16 @@
 		{{/if}}
 		<div class="row">
 			{{#each dreams}}
-				<div class="col-sm-12" style="padding-left:1px;padding-right:1px">
-					<table align="center" class="table cloudy-tr">
+				<div class="col-sm-12 date-div">
+					<span class="label label-primary">{{formatDate createdOn 'short'}}</span>
+				</div>
+				<div class="col-sm-12">
+					<table align="center" class="table dream-table">
 						<tbody>
 							<tr>
-								<td class="date-td">{{formatDate createdOn 'short'}}</td>
-								<td class="dream-text-td">{{shortDreamText text 15}}</td>
-								<td class="dream-face-td"><img class="face-preview" src="/img/faces/{{mood.fileName}}" alt=""></td>
+								<td class="date-td"></td>
+								<td class="dream-text-td cloudy-td">{{shortDreamText text 100}}</td>
+								<td class="dream-face-td"><img class="dream-face" src="/img/faces/{{mood.fileName}}" alt=""></td>
 							</tr>
 						</tbody>
 					</table>

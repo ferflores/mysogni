@@ -1,6 +1,6 @@
 UI.registerHelper("formatDate", function(datetime, format) {
 	DateFormats = {
-       short: "DD MMMM - YYYY",
+       short: "DD - MMMM - YYYY",
        long: "dddd DD.MM.YYYY HH:mm"
 	};
 	if (moment) {
