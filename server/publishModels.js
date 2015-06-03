@@ -16,8 +16,12 @@ Meteor.publish("dreamMoods", function(){
 	}
 });
 
-Meteor.publish("dreams", function(){
+Meteor.publish("dreams", function(limit){
 	if(this.userId){
-		return Dreams.find({userId:this.userId}, {limit: 50});
+		if(limit > 10000){
+			limit = 10000;
+		}
+
+		return Dreams.find({userId:this.userId}, {limit: limit});
 	}
 });
