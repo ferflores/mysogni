@@ -1,12 +1,22 @@
 Template.dreamList.rendered = function(){
 
-	Session.setDefault('dreamsLimit', 5);
-	Meteor.subscribe("dreams", Session.get('dreamsLimit'));
-
 	$('#mainContent').velocity('transition.fadeIn', 1000);
+
+	Session.setDefault('dreamsLimit', 5);
+	
+
+	Template.dreamList.utils.autorunHandler = Deps.autorun(function() {
+    	Meteor.subscribe("dreams", Session.get('dreamsLimit'));
+  	});
 
 	$(window).scroll(Template.dreamList.utils.showMoreDreams);
 }
+
+Template.dreamList.events({
+	"click .more-button": function(){
+		Template.dreamList.utils.showMoreDreams();
+	}
+});
 
 Template.dreamList.helpers({
 	"isNewDream": function(){
@@ -27,8 +37,8 @@ Template.dreamList.utils = {
 	    if (!target.length) return;
 	 
 	    threshold = $(window).scrollTop() + $(window).height() - target.height();
-	 
-	    if (target.offset().top < threshold) {
+
+	    if (target.offset().top <= threshold+10) {
 	        if (!target.data("visible")) {
 	            target.data("visible", true);
 	            Session.set("dreamsLimit",
@@ -39,5 +49,13 @@ Template.dreamList.utils = {
 	            target.data("visible", false);
 	        }
 	    }
-	}
+	},
+	autorunHandler: null
 }
+
+Template.dreamList.onDestroyed(function(){
+	if(Template.dreamList.utils.autorunHandler){
+		Template.dreamList.utils.autorunHandler.stop();
+		$(window).scroll(function(){});
+	}
+});

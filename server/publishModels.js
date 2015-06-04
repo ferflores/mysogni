@@ -21,7 +21,6 @@ Meteor.publish("dreams", function(limit){
 		if(limit > 10000){
 			limit = 10000;
 		}
-
 		return Dreams.find({userId:this.userId}, {limit: limit});
 	}
 });
