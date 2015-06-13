@@ -43,16 +43,11 @@ Meteor.methods({
 				assignedTags = [];
 			}
 
-			var tagIds = [];
-			for (var i = 0; i < assignedTags.length; i++) {
-				tagIds.push(assignedTags[i]._id);
-			};
-
 			Dreams.insert({
 				userId:this.userId,
 				text:dreamText,
 				mood:{moodId:dreamMood.value, fileName:dreamMood.file},
-				tags:tagIds,
+				tags:assignedTags,
 				createdOn: new Date(),
 				dreamedOn: null
 			});

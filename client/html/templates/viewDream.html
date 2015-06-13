@@ -1,0 +1,53 @@
+<template name="viewDream">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-cloud"></span>
+						<span>Tu sueño</span>
+						<button class="btn btn-default btn-sm edit-dream"> Editar
+						<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</div>
+					<div class="panel-body">
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-xs-9">
+									{{viewDream.text}}
+								</div>
+								<div class="col-xs-3">
+									<img class="face-preview" src="/img/faces/{{viewDream.mood.fileName}}" alt="">
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="panel-footer">
+						<div class="container">
+							<div class="row">
+							{{#each viewDream.tags}}
+								<div class="col-xs-6 tag-container hidden-lg">
+									<span class="label label-info assigned-tag"><span class="glyphicon glyphicon-tag"></span>{{text}}</span>
+								</div>
+								<div class="col-lg-3 tag-container hidden-xs hidden-sm hidden-md">
+									<span class="label label-info assigned-tag"><span class="glyphicon glyphicon-tag"></span>{{text}}</span>
+								</div>
+							{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<button class="btn btn-success form-control go-back">
+					Volver
+					<span class="glyphicon glyphicon-chevron-left"> </span>
+				</button>
+			</div>
+		</div>
+	</div>
+</template>

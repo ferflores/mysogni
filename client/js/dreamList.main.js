@@ -15,6 +15,10 @@ Template.dreamList.rendered = function(){
 Template.dreamList.events({
 	"click .more-button": function(){
 		Template.dreamList.utils.showMoreDreams();
+	},
+	"click .dream-div": function(){
+		Session.set("viewDream", this);
+		Router.go("viewDream");
 	}
 });
 
@@ -24,10 +28,13 @@ Template.dreamList.helpers({
 	},
 
 	"dreams": function(){
-		return Dreams.find({},{sort:{createdOn:-1}});
+		return Dreams.find({});
 	},
 	"moreResults": function(){
 		return !(Dreams.find().count() < Session.get("dreamsLimit"));
+	},
+	"noDreams": function(){
+		return Dreams.find({}).fetch().length < 1;
 	}
 });
 

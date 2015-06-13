@@ -1,5 +1,14 @@
 <template name="dreamList">
 	<div class="container-fluid">
+		{{#if noDreams}}
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-warning">
+						Aun no has guardado sueños :(
+					</div>
+				</div>
+			</div>
+		{{/if}}
 		{{#if isNewDream}}
 			<div class="row">
 				<div class="col-sm-12">
@@ -14,7 +23,7 @@
 				<div class="col-sm-12 date-div">
 					<span class="label label-primary">{{formatDate createdOn 'short'}}</span>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-12 dream-div">
 					<table align="center" class="table dream-table">
 						<tbody>
 							<tr class="dream-tr">
