@@ -46,7 +46,7 @@ Meteor.methods({
 			Dreams.insert({
 				userId:this.userId,
 				text:dreamText,
-				mood:{moodId:dreamMood.value, fileName:dreamMood.file},
+				mood:{moodId:dreamMood.value, file:dreamMood.file},
 				tags:assignedTags,
 				createdOn: new Date(),
 				dreamedOn: null
@@ -56,6 +56,36 @@ Meteor.methods({
 		}
 
 		throw new Error("Not authorized");
+	},
+
+	'updateDreamText': function(dreamData){
+		if(!this.userId){
+			throw new Error("Not authorized");
+		}
+
+		if(!dreamData.text || dreamData.text.length < 1){
+			throw new Error("Empty dream text: " + dreamData.dreamId);
+		}
+		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
+			{$set:{text:dreamData.text}});
+	},
+
+	'updateDreamMood': function(dreamData){
+		if(!this.userId){
+			throw new Error("Not authorized");
+		}
+
+		if(!dreamData.dreamMoodId){
+			throw new Error("Empty dream mood: " + dreamData.dreamId);
+		}
+
+		var newDreamMood = DreamMoods.findOne({_id:dreamData.dreamMoodId});
+		if(!newDreamMood){
+			throw new Error("Invalid dream mood "+ dreamMood._id);
+		}
+
+		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
+			{$set:{mood:newDreamMood}});
 	}
 });
 

@@ -1,0 +1,29 @@
+<template name="editFaces">
+	<div class="container-fluid">
+		<div class="well well-sm section-title">
+			<span class="glyphicon glyphicon-tag"></span>
+			<span>Elige el humor de tu sueño</span>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row faces">
+			{{#each faces}}
+				<div class="col-md-3">
+					<img class="face" src="/img/faces/{{file}}" alt="" data-value="{{value}}">
+				</div>
+			{{/each}}
+		</div>
+		<div class="row">
+			<button class="btn btn-warning cancel-edit">
+				Cancelar edición <span class="glyphicon glyphicon-remove"></span>
+			</button>
+		</div>
+		{{#if error}}
+		<div class="row" style="margin-top:1rem">
+			<div class="col-sm-12">
+				<span class="label label-danger">{{error}}</span>
+			</div>
+		</div>
+		{{/if}}
+	</div>
+</template>

@@ -9,6 +9,8 @@ Router.map(function(){
 	this.route('faces');
 	this.route('dreamList');
 	this.route('viewDream');
+	this.route('editDream');
+	this.route('editFaces');
 })
 
 Router.onBeforeAction(function(){

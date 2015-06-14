@@ -17,5 +17,13 @@ Template.viewDream.helpers({
 Template.viewDream.events({
 	"click .go-back": function(){
 		window.history.back();
+	},
+	"click .edit-dream-text": function(){
+		Session.set("editDream", Session.get("viewDream"));
+		Router.go("editDream");
+	},
+	"click .edit-face": function(){
+		Session.set("editFace", Session.get("viewDream"));
+		Router.go("editFaces");
 	}
 });
