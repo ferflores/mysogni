@@ -11,6 +11,7 @@ Router.map(function(){
 	this.route('viewDream');
 	this.route('editDream');
 	this.route('editFaces');
+	this.route('editTags');
 })
 
 Router.onBeforeAction(function(){

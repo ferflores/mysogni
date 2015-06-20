@@ -16,7 +16,7 @@ Template.viewDream.helpers({
 
 Template.viewDream.events({
 	"click .go-back": function(){
-		window.history.back();
+		Router.go("dreamList");
 	},
 	"click .edit-dream-text": function(){
 		Session.set("editDream", Session.get("viewDream"));
@@ -25,5 +25,9 @@ Template.viewDream.events({
 	"click .edit-face": function(){
 		Session.set("editFace", Session.get("viewDream"));
 		Router.go("editFaces");
+	},
+	"click .edit-tags": function(){
+		Session.set("editDreamTags", Session.get("viewDream"));
+		Router.go("editTags");
 	}
 });

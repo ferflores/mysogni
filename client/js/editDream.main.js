@@ -13,6 +13,10 @@ Template.editDream.helpers({
 		return Session.get('editDream');
 	},
 	'disabledSaveDream': function(){
+		if(!Session.get("editDream")){
+			return "";
+		}
+
 		return Session.get("editDream").text ? "" : "disabled";
 	},
 	'error': function(){

@@ -1,7 +1,2 @@
-pending: 
-
-save dream
-display dream list
-
 todo:
 	loadings on each request

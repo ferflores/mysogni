@@ -1,0 +1,130 @@
+<template name="editTags">
+	<div class="container">
+		<div class="alert alert-info">
+			<table>
+				<tr>
+					<td><span class="alert-message glyphicon glyphicon-info-sign"></span></td>
+					<td><span class="alert-message"> Crea y asigna etiquetas para que sea más fácil clasificar tus sueños. Por ejemplo: Agua, pasado, futuro, conflicto...</span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<span class="glyphicon glyphicon-cloud"></span>
+						<span>Tu sueño</span>
+					</div>
+					<div class="panel-body">
+
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-xs-9">
+									{{dreamText}}
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					<div class="panel-footer">
+						<div class="container">
+							<div class="row">
+							{{#each assignedTags}}
+								<div class="col-xs-6 tag-container hidden-lg">
+									<span class="label label-success assigned-tag">{{text}} <span class="glyphicon glyphicon-remove"></span></span>
+								</div>
+								<div class="col-lg-3 tag-container hidden-xs hidden-sm hidden-md">
+									<span class="label label-success assigned-tag">{{text}} <span class="glyphicon glyphicon-remove"></span></span>
+								</div>
+							{{/each}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+		{{#if availableUserTags}}
+			<div class="col-sm-12">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<span>Asigna tus etiquetas</span>
+					</div>
+					<div class="panel-body">
+						<div class="container-fluid">
+							<div class="row">
+								<div class="col-sm-12">
+									<input type="text" class="form-control search-tag" placeholder="Buscar etiqueta" maxlength="20">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12">
+									<table class="tag-table">
+									{{#if searchedTagsAvailable}}
+										<tr>
+											{{#each searchedTags}}
+											<td>
+												<span class="label label-primary searched-tag">{{text}} <span class="glyphicon glyphicon-plus-sign"></span></span>
+											</td>
+											{{/each}}
+										</tr>
+									{{/if}}
+									</table>
+									</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{{/if}}
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<input 
+					type="text" 
+					class="form-control tag-input" 
+					placeholder="Escribe aquí para crear una etiqueta"
+					maxlength="15">
+				{{#if createTagError}}
+					<span class="label label-danger">
+						{{createTagError}}
+					</span>
+				{{/if}}
+			</div>
+			<div class="col-sm-6">
+				<select id="tagCategory" class="form-control tag-category">
+					{{#each tagCategories}}
+						<option value="{{value}}">{{text}}</option>
+					{{/each}}
+				</select>
+			</div>
+			{{#if creatingTag}}
+				<div class="col-sm-2">
+					{{> blueLoader}}
+				</div>
+			{{else}}
+				<div class="col-sm-3">
+					<button class="btn btn-info form-control create-tag"> 
+						Crear etiqueta	
+						<span class="glyphicon glyphicon-plus-sign"> </span>
+					</button>
+				</div>
+			{{/if}}
+
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<button class="btn btn-warning form-control next-button cancel-edit">
+					Cancelar edición
+					<span class="glyphicon glyphicon-remove"> </span>
+				</button>
+			</div>
+			<div class="col-sm-4">
+				<button class="btn btn-success form-control next-button save-tags">
+					Guardar cambios
+					<span class="glyphicon glyphicon-save"> </span>
+				</button>
+			</div>
+		</div>
+	</div>
+</template>
