@@ -16,7 +16,6 @@ Template.tags.rendered = function(){
 		Session.set("assignedTags", []);
 	}
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
 Template.tags.events({

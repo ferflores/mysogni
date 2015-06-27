@@ -1,10 +1,9 @@
 <template name="home">
 	<div class="container">
 		<div class="bs-component random-message-container">
-
 			<div class="row">
 				<div class="col-sm-12">
-					<h3 class="page-title">¿Qué soñaste?</h3>
+					<h3 class="page-title">{{translate '¿Qué soñaste?'}}</h3>
 				</div>
 				<div class="col-sm-12">
 					<textarea 
@@ -12,20 +11,13 @@
 						name="dreamText" 
 						class="form-control dream-input" 
 						rows="5" 
-						placeholder="Escribe aquí tu sueño"
+						placeholder="{{translate 'Escribe aquí tu sueño'}}"
 						value={{dreamText}}></textarea>
-				</div>
-				<div class="col-sm-12">
-					{{#if saveDreamError}}
-						<span class="label label-danger">
-							{{saveDreamError}}
-						</span>
-					{{/if}}
 				</div>
 				<div class="col-sm-4">
 					<button 
 						class="btn btn-success form-control save-dream" {{disabledSaveDream}}>
-							Siguiente
+							{{translate 'Siguiente'}}
 							<span class="glyphicon glyphicon-chevron-right">
 							</span>
 					</button>

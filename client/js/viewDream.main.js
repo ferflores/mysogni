@@ -4,8 +4,6 @@ Template.viewDream.rendered = function(){
 		Router.go('dreamList');
 	}
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
-
 }
 
 Template.viewDream.helpers({
@@ -29,5 +27,16 @@ Template.viewDream.events({
 	"click .edit-tags": function(){
 		Session.set("editDreamTags", Session.get("viewDream"));
 		Router.go("editTags");
+	},
+	"click .delete-dream": function(){
+		Meteor.call("deleteDream", this._id, deleteDreamCallback());
+
+		function deleteDreamCallback(err){
+			if(!err){
+				Router.go("dreamList");
+			}else{
+				Modals.errorModal("Error al guardar sueño",{error:err});
+			}
+		}
 	}
 });

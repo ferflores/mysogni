@@ -5,6 +5,7 @@ Meteor.startup(function(){
 	TagCategories._ensureIndex({value:1}, {unique: true, dropDups: true});
 	DreamMoods._ensureIndex({value: 1}, {unique: true, dropDups: true});
 	Dreams._ensureIndex({userId:1, createdOn:1});
+	Dreams._ensureIndex({deleted:1});
 
 	if (TagCategories.find({}).fetch().length < 1){
 		TagCategories.insert({

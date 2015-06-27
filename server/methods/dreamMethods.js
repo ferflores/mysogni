@@ -49,7 +49,8 @@ Meteor.methods({
 				mood:{moodId:dreamMood.value, file:dreamMood.file},
 				tags:assignedTags,
 				createdOn: new Date(),
-				dreamedOn: null
+				dreamedOn: null,
+				deleted: falser
 			});
 
 			return 1;
@@ -86,6 +87,18 @@ Meteor.methods({
 
 		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
 			{$set:{mood:newDreamMood}});
+	},
+
+	'deleteDream':function(dreamId){
+		if(!this.userId){
+			throw new Error("Not authorized");
+		}
+
+		var dreamExists = Dreams.findOne({_id:dreamId}) != null;
+
+		if(dreamExists){
+			Dreams.update({_id:dreamId}, {$set:{deleted:true}});
+		}
 	}
 });
 

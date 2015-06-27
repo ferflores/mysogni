@@ -1,7 +1,5 @@
 Template.dreamList.rendered = function(){
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
-
 	Session.setDefault('dreamsLimit', 5);
 	
 

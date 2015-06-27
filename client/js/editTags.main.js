@@ -19,7 +19,6 @@ Template.editTags.rendered = function(){
 
 	Session.set("searchedTags", []);
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
 Template.editTags.events({

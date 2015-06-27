@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="alert alert-warning">
-						Aun no has guardado sueños :(
+						{{translate 'Aun no has guardado sueños :('}}
 					</div>
 				</div>
 			</div>
@@ -13,7 +13,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<div class="alert alert-info">
-						Tu sueño ha sido guardado :)
+						{{translate 'Tu sueño ha sido guardado :)'}}
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 			{{/each}}
 			<div class="col-sm-12 more-button">
 				{{#if moreResults}}
-					<button id="showMoreResults" class="btn btn-info"><span class="glyphicon glyphicon-zoom-in"></span>Ver más</button>
+					<button id="showMoreResults" class="btn btn-info"><span class="glyphicon glyphicon-zoom-in"></span>{{translate 'Ver más'}}</button>
 				{{/if}}
 			</div>
 		</div>

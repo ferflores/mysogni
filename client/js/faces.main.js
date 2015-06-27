@@ -7,7 +7,6 @@ Template.faces.onCreated(function(){
 Template.faces.rendered = function(){
 	Meteor.subscribe("dreamMoods");
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
 }
 
 Template.faces.events({

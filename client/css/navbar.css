@@ -1,3 +1,7 @@
 .navbar-logo {
 	padding:2px;
 }
+
+.nav a:visited{
+	color:white;
+}

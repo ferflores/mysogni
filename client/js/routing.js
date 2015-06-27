@@ -3,8 +3,8 @@ Router.configure({
 });
 
 Router.map(function(){
-	this.route('login', { path:'/'});
-	this.route('home');
+	this.route('login');
+	this.route('home', { path:'/'});
 	this.route('tags');
 	this.route('faces');
 	this.route('dreamList');
@@ -18,13 +18,12 @@ Router.onBeforeAction(function(){
 	if (!Meteor.userId()) {
     	this.render('login');
   	}else{
-  		 $('#mainContent').css('display', 'none');
+  		 $('#bodyContent').css('display', 'none');
   	}
 
   	this.next();
 });
 
 Router.onAfterAction(function(){
-	//Running twice?
-	//$('#mainContent').velocity('transition.fadeIn',1000)
+	$('#bodyContent').velocity('transition.fadeIn',1000)
 });

@@ -3,7 +3,7 @@
 	<div class="container-fluid">
 		<div class="well well-sm section-title">
 			<span class="glyphicon glyphicon-tag"></span>
-			<span>Etiquetas</span>
+			<span>{{translate 'Etiquetas'}}</span>
 		</div>
 	</div>
 	{{/if}}
@@ -15,7 +15,7 @@
 			<table>
 				<tr>
 					<td><span class="alert-message glyphicon glyphicon-info-sign"></span></td>
-					<td><span class="alert-message"> Crea y asigna etiquetas para que sea más fácil clasificar tus sueños. Por ejemplo: Agua, pasado, futuro, conflicto...</span></td>
+					<td><span class="alert-message"> {{translate 'Clasifica tus sueños con etiquetas'}}</span></td>
 				</tr>
 			</table>
 		</div>
@@ -25,8 +25,8 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<span class="glyphicon glyphicon-cloud"></span>
-						<span>Tu sueño</span>
-						<button class="btn btn-default btn-sm edit-dream"> Editar
+						<span>{{translate 'Tu sueño'}}</span>
+						<button class="btn btn-default btn-sm edit-dream"> {{translate 'Editar'}}
 						<span class="glyphicon glyphicon-pencil"></span>
 						</button>
 					</div>
@@ -71,7 +71,7 @@
 				<input 
 					type="text" 
 					class="form-control tag-input" 
-					placeholder="Escribe aquí para crear una etiqueta"
+					placeholder="{{translate 'Escribe aquí para crear una etiqueta'}}"
 					maxlength="15">
 				{{#if createTagError}}
 					<span class="label label-danger">
@@ -93,7 +93,7 @@
 			{{else}}
 				<div class="col-sm-3">
 					<button class="btn btn-info form-control create-tag"> 
-						Crear etiqueta	
+						{{translate 'Crear etiqueta'}}
 						<span class="glyphicon glyphicon-plus-sign"> </span>
 					</button>
 				</div>
@@ -103,7 +103,7 @@
 		<div class="row">
 			<div class="col-sm-4">
 				<button class="btn btn-success form-control next-button save-dream">
-					Guardar sueño
+					{{translate 'Guardar sueño'}}
 					<span class="glyphicon glyphicon-chevron-right"> </span>
 				</button>
 			</div>

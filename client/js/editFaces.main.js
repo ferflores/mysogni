@@ -6,8 +6,6 @@ Template.editFaces.rendered = function(){
 
 	Meteor.subscribe("dreamMoods");
 
-	$('#mainContent').velocity('transition.fadeIn', 1000);
-
 }
 
 Template.editFaces.helpers({

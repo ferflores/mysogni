@@ -17,5 +17,14 @@ Template.navbar.events({
             	Router.go("login");
             }
         })
+	},
+	"click .switch-language": function(){
+		if(Meteor.I18n().lang() == "es"){
+			Meteor.I18n().lang("en");
+		}else{
+			Meteor.I18n().lang("es");
+		}
+
+		Cookie.set('lang', Meteor.I18n().lang());
 	}
 });

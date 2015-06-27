@@ -1,9 +1,12 @@
 <template name="layout">
 
-	<div id="mainContent" class="container-fluid no-side-padding">
+	<div id="navbar" class="container-fluid no-side-padding">
 		{{#if currentUser}}
 			{{> navbar}}
 		{{/if}}
+	</div>
+	<div id="bodyContent" class="container-fluid no-side-padding">
 		{{> yield}}
 	</div>
+	
 </template>
