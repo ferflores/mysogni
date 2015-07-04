@@ -29,7 +29,7 @@ Template.viewDream.events({
 		Router.go("editTags");
 	},
 	"click .delete-dream": function(){
-		Meteor.call("deleteDream", this._id, deleteDreamCallback());
+		Meteor.call("deleteDream", Session.get("viewDream")._id, deleteDreamCallback());
 
 		function deleteDreamCallback(err){
 			if(!err){

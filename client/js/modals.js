@@ -22,3 +22,21 @@ Modals.errorModal = function (title, doc) {
 
 	  rd.show();
 }
+
+Modals.confirmModal = function(title, functionOk, functionNo){
+	/*var confirmModalData = {
+	    template: Template.confirmModal,
+	    title: title,
+	    removeOnHide: true,
+	    modalDialogClass: "share-modal-dialog", //optional
+	    modalBodyClass: "share-modal-body", //optional
+	    modalFooterClass: "share-modal-footer",//optional
+	    buttons: {
+	      "ok": {
+	        class: 'btn-info',
+	        label: 'Cancel'
+	      }
+	    },
+	    doc: doc
+	  }*/
+}

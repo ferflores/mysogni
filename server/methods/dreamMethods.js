@@ -50,7 +50,7 @@ Meteor.methods({
 				tags:assignedTags,
 				createdOn: new Date(),
 				dreamedOn: null,
-				deleted: falser
+				deleted: false
 			});
 
 			return 1;
@@ -95,7 +95,6 @@ Meteor.methods({
 		}
 
 		var dreamExists = Dreams.findOne({_id:dreamId}) != null;
-
 		if(dreamExists){
 			Dreams.update({_id:dreamId}, {$set:{deleted:true}});
 		}

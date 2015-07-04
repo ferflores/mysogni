@@ -11,7 +11,7 @@ var checkTranslations = function(){
 	  {lang: 'es', base_str: 'Mis sueños', new_str: 'Mis sueños'},
 	  {lang: 'en', base_str: 'Mis sueños', new_str: 'My dreams'},
 	  {lang: 'es', base_str: '¿Qué soñaste?', new_str: '¿Qué soñaste?'},
-	  {lang: 'en', base_str: 'Mis sueños', new_str: 'What did you dream?'},
+	  {lang: 'en', base_str: '¿Qué soñaste?', new_str: 'What did you dream?'},
 	  {lang: 'es', base_str: 'Escribe aquí tu sueño', new_str: 'Escribe aquí tu sueño'},
 	  {lang: 'en', base_str: 'Escribe aquí tu sueño', new_str: 'Write your dream'},
 	  {lang: 'es', base_str: 'Siguiente', new_str: 'Siguiente'},

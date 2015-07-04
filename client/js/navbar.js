@@ -18,7 +18,8 @@ Template.navbar.events({
             }
         })
 	},
-	"click .switch-language": function(){
+	"click .switch-lang": function(){
+
 		if(Meteor.I18n().lang() == "es"){
 			Meteor.I18n().lang("en");
 		}else{
@@ -26,5 +27,6 @@ Template.navbar.events({
 		}
 
 		Cookie.set('lang', Meteor.I18n().lang());
+		console.log(Meteor.I18n().lang());
 	}
 });
