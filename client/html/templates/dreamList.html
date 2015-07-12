@@ -1,5 +1,14 @@
 <template name="dreamList">
-	<div class="container-fluid">
+	<div class="container">
+		{{#if isNewDream}}
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="alert alert-info">
+						{{translate 'Tu sueño ha sido guardado :)'}}
+					</div>
+				</div>
+			</div>
+		{{/if}}
 		{{#if noDreams}}
 			<div class="row">
 				<div class="col-sm-12">
@@ -8,13 +17,10 @@
 					</div>
 				</div>
 			</div>
-		{{/if}}
-		{{#if isNewDream}}
+		{{else}}
 			<div class="row">
-				<div class="col-sm-12">
-					<div class="alert alert-info">
-						{{translate 'Tu sueño ha sido guardado :)'}}
-					</div>
+				<div class="col-sm-4">
+					<input class="form-control search-dream" type="text" placeholder="{{translate 'Busca tus sueños'}}" maxlength="20">
 				</div>
 			</div>
 		{{/if}}

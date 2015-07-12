@@ -6,9 +6,9 @@ Modals.errorModal = function (title, doc) {
 	    template: Template.errorModal,
 	    title: title,
 	    removeOnHide: true,
-	    modalDialogClass: "share-modal-dialog", //optional
-	    modalBodyClass: "share-modal-body", //optional
-	    modalFooterClass: "share-modal-footer",//optional
+	    modalDialogClass: "share-modal-dialog",
+	    modalBodyClass: "share-modal-body",
+	    modalFooterClass: "share-modal-footer",
 	    buttons: {
 	      "ok": {
 	        class: 'btn-info',
@@ -23,20 +23,37 @@ Modals.errorModal = function (title, doc) {
 	  rd.show();
 }
 
-Modals.confirmModal = function(title, functionOk, functionNo){
-	/*var confirmModalData = {
+Modals.confirmModal = function(title, question, functionOk, functionNo){
+	var confirmModalData = {
 	    template: Template.confirmModal,
 	    title: title,
 	    removeOnHide: true,
-	    modalDialogClass: "share-modal-dialog", //optional
-	    modalBodyClass: "share-modal-body", //optional
-	    modalFooterClass: "share-modal-footer",//optional
+	    modalDialogClass: "share-modal-dialog",
+	    modalBodyClass: "share-modal-body",
 	    buttons: {
 	      "ok": {
 	        class: 'btn-info',
-	        label: 'Cancel'
+	        label: 'Ok'
+	      },
+	      "no": {
+	        class: 'btn-warning',
+	        label: 'No'
 	      }
 	    },
-	    doc: doc
-	  }*/
+	    doc: {question: question}
+	  }
+
+	  var rd = ReactiveModal.initDialog(confirmModalData);
+
+	  rd.buttons.ok.on('click', function(){
+	  	functionOk();
+	  });
+
+	  rd.buttons.no.on('click', function(){
+	  	if(functionNo){
+	  		functionNo();
+	  	}
+	  });
+
+	  rd.show();
 }

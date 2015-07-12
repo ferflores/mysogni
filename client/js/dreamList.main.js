@@ -17,6 +17,11 @@ Template.dreamList.events({
 	"click .dream-div": function(){
 		Session.set("viewDream", this);
 		Router.go("viewDream");
+	},
+	"keyup .search-dream": function(){
+		if($(".search-dream").val().length < 20){
+			Session.set("dreamTextSearch", $(".search-dream").val());
+		}
 	}
 });
 
@@ -26,10 +31,11 @@ Template.dreamList.helpers({
 	},
 
 	"dreams": function(){
-		return Dreams.find({});
+		var textSearch = Session.get("dreamTextSearch") || "";
+		return Dreams.find({text:new RegExp(textSearch)});
 	},
 	"moreResults": function(){
-		return !(Dreams.find().count() < Session.get("dreamsLimit"));
+		return !(Dreams.find({}).count() < Session.get("dreamsLimit"));
 	},
 	"noDreams": function(){
 		return Dreams.find({}).fetch().length < 1;
@@ -55,6 +61,7 @@ Template.dreamList.utils = {
 	        }
 	    }
 	},
+
 	autorunHandler: null
 }
 
@@ -63,4 +70,6 @@ Template.dreamList.onDestroyed(function(){
 		Template.dreamList.utils.autorunHandler.stop();
 		$(window).scroll(function(){});
 	}
+
+	Session.set("dreamTextSearch", null);
 });

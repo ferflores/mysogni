@@ -18,9 +18,15 @@ Meteor.publish("dreamMoods", function(){
 
 Meteor.publish("dreams", function(limit){
 	if(this.userId){
+
+		if(!limit){
+			limit=30;
+		}
+
 		if(limit > 10000){
 			limit = 10000;
 		}
+
 		return Dreams.find({$and:[{userId:this.userId}, {deleted:false}]}, 
 			{limit: limit, sort:{'createdOn':-1}});
 	}

@@ -1,7 +1,6 @@
 Meteor.methods({
 	'saveDream' : function(dream){
 		if(this.userId){
-			
 			var dreamText = dream.text;
 			var dreamMood = dream.mood;
 			var assignedTags = dream.assignedTags;
@@ -67,6 +66,7 @@ Meteor.methods({
 		if(!dreamData.text || dreamData.text.length < 1){
 			throw new Error("Empty dream text: " + dreamData.dreamId);
 		}
+
 		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
 			{$set:{text:dreamData.text}});
 	},

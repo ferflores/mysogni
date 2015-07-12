@@ -55,7 +55,11 @@ var checkTranslations = function(){
 	  {lang: 'es', base_str: 'Cancelar edición', new_str: 'Cancelar edición'},
 	  {lang: 'en', base_str: 'Cancelar edición', new_str: 'Cancel edit'},
 	  {lang: 'es', base_str: 'Guardar', new_str: 'Guardar'},
-	  {lang: 'en', base_str: 'Guardar', new_str: 'Save'}
+	  {lang: 'en', base_str: 'Guardar', new_str: 'Save'},
+	  {lang: 'es', base_str: 'Busca tus sueños', new_str: 'Busca tus sueños'},
+	  {lang: 'en', base_str: 'Busca tus sueños', new_str: 'Search your dreams'},
+	  {lang: 'es', base_str: 'Buscar', new_str: 'Buscar'},
+	  {lang: 'en', base_str: 'Buscar', new_str: 'Search'}
 	];
 	var i18n = Meteor.I18n();
 

@@ -46,6 +46,7 @@ DreamMoods.allow({
 	}
 });
 
+
 Dreams.allow({
 	insert: function (userId, doc) {
 		return (userId && doc.userId === userId);
@@ -54,6 +55,6 @@ Dreams.allow({
 		return (userId && doc.userId === userId);
 	},
     remove: function(userId, doc) {
-		return (userId && doc.userId === userId);
+		return false;
 	}
 });
