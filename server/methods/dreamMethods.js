@@ -3,7 +3,7 @@ Meteor.methods({
 		if(this.userId){
 			var dreamText = dream.text;
 			var dreamMood = dream.mood;
-			var assignedTags = dream.assignedTags;
+			var assignedTags = dream.assignedTags || [];
 
 			if(!dreamText || dreamText.length < 1){
 				throw new Error("No dream length");
@@ -17,26 +17,10 @@ Meteor.methods({
 				throw new Error("Invalid dream mood "+ dreamMood._id);
 			}
 
-			if(assignedTags && assignedTags.length > 0){
+			//TODO: Display a max tags error instead of do nothing
+			if(assignedTags && assignedTags.length > 0 && assignedTags.length < 21){
 
-				var existingUserTags = UserTags.findOne({userId:this.userId});
-				if(!existingUserTags){
-					throw new Error("No user tags found at saveDream, userId: " + this.userId);
-				}
-
-				for (var i = 0; i < assignedTags.length; i++) {
-					var validTag = false;
-					for (var j = 0; j < existingUserTags.tags.length; j++) {
-						if(assignedTags[i]._id === existingUserTags.tags[j]._id){
-							validTag = true;
-							continue;
-						}
-					};
-
-					if(!validTag){
-						throw new Error("Invalid tag, userId: " + this.userId + " tagId: "+ assignedTags[i]._id);
-					}
-				}
+				assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
 
 			}else{
 				assignedTags = [];
@@ -101,3 +85,53 @@ Meteor.methods({
 	}
 });
 
+Meteor.dreamMethodsUtils = {
+	"validateAndUpdateUserTags": function(userId, assignedTags){
+
+		var userTags = UserTags.findOne({userId:userId});
+		var userTagsId = null;
+		var dreamTags = [];
+
+		if(!userTags){
+			userTags = {
+				userId: userId,
+				tags: [],
+				updatedOn: new Date()
+			}
+			userTagsId = UserTags.insert(userTags);
+		}else{
+			userTagsId = userTags._id;
+		}
+
+		for (var i = 0; i < assignedTags.length; i++) {
+			var text = assignedTags[i].text;
+
+			if(!text){
+				continue;
+			}
+
+			text = text.replace(/\s+/g);
+
+			if(text.length < 1){
+				continue;
+			}
+
+			if(text.replace(/^[a-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
+				continue;
+			}
+
+			dreamTags.push({text:text});
+
+			var existingTag = false;
+			for (var j = 0; j < userTags.length; j++) {
+				assignedTags[i].text == userTags.text;
+			};
+
+			if(!existingTag){
+				UserTags.update({_id:userTagsId}, {$push:{tags:existingTag}});
+			}
+		};
+
+		return dreamTags;
+	}
+}

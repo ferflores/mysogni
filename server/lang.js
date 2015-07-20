@@ -32,10 +32,10 @@ var checkTranslations = function(){
 	  {lang: 'en', base_str: 'Crear etiqueta', new_str: 'Create tag'},
 	  {lang: 'es', base_str: 'Guardar sueño', new_str: 'Guardar sueño'},
 	  {lang: 'en', base_str: 'Guardar sueño', new_str: 'Save dream'},
-	  {lang: 'es', base_str: 'Asigna tus etiquetas', new_str: 'Asigna tus etiquetas'},
-	  {lang: 'en', base_str: 'Asigna tus etiquetas', new_str: 'Assign your tags'},
-	  {lang: 'es', base_str: 'Buscar etiqueta', new_str: 'Buscar etiqueta'},
-	  {lang: 'en', base_str: 'Buscar etiqueta', new_str: 'Search tag'},
+	  {lang: 'es', base_str: 'Asigna etiquetas a tu sueño', new_str: 'Asigna etiquetas a tu sueño'},
+	  {lang: 'en', base_str: 'Asigna etiquetas a tu sueño', new_str: 'Assign tags to your dream'},
+	  {lang: 'es', base_str: 'Nombre de etiqueta', new_str: 'Nombre de etiqueta'},
+	  {lang: 'en', base_str: 'Nombre de etiqueta', new_str: 'Tag name'},
 	  {lang: 'es', base_str: 'Aun no has guardado sueños :(', new_str: 'Aun no has guardado sueños :('},
 	  {lang: 'en', base_str: 'Aun no has guardado sueños :(', new_str: 'You have not saved dreams yet'},
 	  {lang: 'es', base_str: 'Tu sueño ha sido guardado :)', new_str: 'Tu sueño ha sido guardado :)'},
@@ -59,7 +59,11 @@ var checkTranslations = function(){
 	  {lang: 'es', base_str: 'Busca tus sueños', new_str: 'Busca tus sueños'},
 	  {lang: 'en', base_str: 'Busca tus sueños', new_str: 'Search your dreams'},
 	  {lang: 'es', base_str: 'Buscar', new_str: 'Buscar'},
-	  {lang: 'en', base_str: 'Buscar', new_str: 'Search'}
+	  {lang: 'en', base_str: 'Buscar', new_str: 'Search'},
+	  {lang: 'es', base_str: 'Asignar', new_str: 'Asignar'},
+	  {lang: 'en', base_str: 'Asignar', new_str: 'Assign'},
+	  {lang: 'es', base_str: 'Solo letras o números', new_str: 'Solo letras o números'},
+	  {lang: 'en', base_str: 'Solo letras o números', new_str: 'Only letters and numbers'}
 	];
 	var i18n = Meteor.I18n();
 

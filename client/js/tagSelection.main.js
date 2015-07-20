@@ -23,44 +23,49 @@ Template.tagSelection.helpers({
 
 	"searchedTags": function(){
 		return Session.get("searchedTags");
+	},
+
+	"tagError": function(){
+		return Session.get("tagError");
 	}
 });
 
 Template.tagSelection.events({
-	"keyup .search-tag": function(){
+	"keyup .search-tag": function(event){
+
 		if($(".search-tag").val().length > 0 && $(".search-tag").val().length < 20){
 			Template.tagSelection.Utils.searchTag($(".search-tag").val());
+		}
+
+		if($(".search-tag").val().length > 1){
+			$(".assign-button").show();
+
+			if (event.which === 13) {
+				Session.set("tagError", null);
+				Template.tagSelection.Utils.assignTag($(".search-tag").val());
+				$(".search-tag").val('');
+				$(".assign-button").hide();
+			}
+
 		}else{
-			//Session.set("searchedTags", []);
+			$(".assign-button").hide();
 		}
 	},
 
 	"click .searched-tag":function(){
-		var newAssignedTags = Session.get("assignedTags") || [];
-		var addTag = true;
+		Session.set("tagError", null);
 
-		for (var i = 0; i < newAssignedTags.length; i++) {
-			if(newAssignedTags[i]._id == this._id){
-				addTag = false;
-				break;
-			}
-		};
+		Template.tagSelection.Utils.assignTag(this.text);
+	},
 
-		if(addTag){
-			newAssignedTags.push(this);
-			Session.set("assignedTags", newAssignedTags);
+	"click .assign-button": function(){
+		Session.set("tagError", null);
 
-			var searchedTags = Session.get("searchedTags");
-
-			for (var i = 0; i < searchedTags.length; i++) {
-				if(searchedTags[i]._id == this._id){
-					searchedTags.splice(i, 1);
-				}
-			};
-
-			Session.set("searchedTags", searchedTags);
+		var text = $(".search-tag").val();
+		if(text.length>1){
+			Template.tagSelection.Utils.assignTag(text);
 		}
-	}
+	},
 });
 
 Template.tagSelection.Utils = {
@@ -86,5 +91,45 @@ Template.tagSelection.Utils = {
 		}
 
 		return assignedTagsIds;
+	},
+
+	assignTag: function(text){
+
+		if(text.replace(/^[a-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
+			Session.set("tagError", "Solo letras o números");
+			return;
+		}
+
+		text = text.replace(/\s+/g, '');
+
+		var newAssignedTags = Session.get("assignedTags") || [];
+		var addTag = true;
+
+		for (var i = 0; i < newAssignedTags.length; i++) {
+			if(newAssignedTags[i].text == text){
+				addTag = false;
+				break;
+			}
+		};
+
+		if(addTag){
+			newAssignedTags.push({text:text});
+
+			Session.set("assignedTags", newAssignedTags);
+
+			var searchedTags = Session.get("searchedTags");
+
+			for (var i = 0; i < searchedTags.length; i++) {
+				if(searchedTags[i].text == text){
+					searchedTags.splice(i, 1);
+				}
+			};
+
+			Session.set("searchedTags", searchedTags);
+		}
 	}
 }
+
+Template.tagSelection.onDestroyed(function(){
+	Session.set("tagError", null);
+});

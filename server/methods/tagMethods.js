@@ -1,38 +1,4 @@
 Meteor.methods({
-	'createTag' : function(tag){
-
-		if(this.userId){
-
-			tag.text = Meteor.ValidationUtils.cleanTag(tag.text);
-
-			if(tag.text.length < 1 || tag.text.replace(/^[a-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
-				return {error: "INV_CHAR"};
-			}
-
-			if(tag.text.length > 15){
-				return {error: "MAX_LENGTH"}
-			}
-
-			var tagId = "";
-			var existingTag = Tags.findOne({text:tag.text.toLowerCase()});
-
-			if(!existingTag){
-				newTag = {
-					createdBy:this.userId,
-					text:tag.text.toLowerCase(),
-					createdOn: new Date()
-				};
-				
-				tagId = Tags.insert(newTag);
-			}else{
-				tagId = existingTag._id;
-			}
-
-			return Meteor.tagMethodsUtils.createUserTag(tagId, tag);
-		}
-
-		throw new Error("Not authorized");
-	},
 
 	'updateDreamTags': function(data){
 		if(this.userId){
@@ -43,8 +9,6 @@ Meteor.methods({
 				if(assignedTags.length > 100){
 					throw new Error("Max assigned tags exeeded");
 				}
-
-				
 
 				assignedTags = _.uniq(assignedTags, function(item, key, a) { 
     					return item._id;
@@ -84,9 +48,7 @@ Meteor.methods({
 	'getUserTagCount': function(){
 		if(this.userId){
 
-			var count = Tags.find({userId:this.userId}).count();
-
-			return count;
+			return UserTags.findOne({userId:this.userId}).tags.count();
 		}
 
 		throw new Error("Not authorized");
@@ -111,9 +73,11 @@ Meteor.methods({
 					return randomTags;
 				}
 			}
+		}else{
+			throw new Error("Not authorized");
 		}
-
-		throw new Error("Not authorized");
+		
+		return [];
 	},
 
 	'searchTag': function(request){
@@ -148,64 +112,6 @@ Meteor.methods({
 			}
 
 			return searchedTags;
-			/*var tags = UserTags.find({text:{'$regex':request.text},
-				_id:{$nin:request.assignedTags}}, {limit:3}).fetch();
-
-			return tags;*/
 		}
 	}
 });
-
-Meteor.ValidationUtils = {
-	cleanTag: function(tagText){
-		return tagText.replace(/\s+/g," ").substring(0,20);
-	}
-};
-
-Meteor.tagMethodsUtils = {
-	createUserTag: function(tagId, tagData){
-		var userTagsId = null;
-		var currentUserTags = [];
-
-		var existingUserTags = UserTags.findOne({userId:Meteor.userId()});
-		if(!existingUserTags){
-			var newUserTags = {
-				userId: Meteor.userId(),
-				tags: [],
-				updatedOn: new Date()
-			}
-			userTagsId = UserTags.insert(newUserTags);
-		}else{
-			userTagsId = existingUserTags._id;
-			currentUserTags = existingUserTags.tags;
-		}
-
-		var addTag = true;
-
-		for (var i = 0; i < currentUserTags.length; i++) {
-			if(currentUserTags[i]._id == tagId){
-				addTag = false;
-				return currentUserTags[i];
-			}
-		}
-
-		if(addTag){
-			var newUserTag = {
-				_id:tagId, 
-				text:tagData.text, 
-				addedOn: new Date(), 
-				category: tagData.category
-			};
-			currentUserTags.push(newUserTag);
-
-			UserTags.update({_id:userTagsId},
-				{
-					userId:Meteor.userId(),
-					updatedOn: new Date(),
-					tags: currentUserTags
-				});
-
-			return newUserTag;
-		}
-	}
-}

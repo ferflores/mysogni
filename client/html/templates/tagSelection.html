@@ -2,14 +2,27 @@
 	<div class="col-sm-12">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<span>{{translate 'Asigna tus etiquetas'}}</span>
+				<span>{{translate 'Asigna etiquetas a tu sueño'}}</span>
 			</div>
 			<div class="panel-body">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-sm-12">
-							<input type="text" class="form-control search-tag" placeholder="{{translate 'Buscar etiqueta'}}" maxlength="20">
+						<div class="col-sm-6">
+							<input type="text" class="form-control search-tag" placeholder="{{translate 'Nombre de etiqueta'}}" style="margin-bottom:5px" maxlength="20">
 						</div>
+						<div class="col-sm-2">
+							<button class="btn btn-default assign-button" style="display:none">
+								{{translate 'Asignar'}}
+								<span class="glyphicon glyphicon-plus-sign"></span>
+							</button>
+						</div>
+						{{#if tagError}}
+						<div class="col-sm-4">
+							<span class="label label-danger">
+								{{translate tagError}}
+							</span>
+						</div>
+						{{/if}}
 					</div>
 					<div class="row">
 						<div class="col-sm-12">
