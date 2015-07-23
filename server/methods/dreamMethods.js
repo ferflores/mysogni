@@ -124,11 +124,14 @@ Meteor.dreamMethodsUtils = {
 
 			var existingTag = false;
 			for (var j = 0; j < userTags.length; j++) {
-				assignedTags[i].text == userTags.text;
+				if(assignedTags[i].text == userTags.text){
+					existingTag = true;
+					break;
+				}
 			};
 
 			if(!existingTag){
-				UserTags.update({_id:userTagsId}, {$push:{tags:existingTag}});
+				UserTags.update({_id:userTagsId}, {$push:{tags:{text:text, createdOn:new Date()}}});
 			}
 		};
 
