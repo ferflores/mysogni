@@ -53,9 +53,22 @@
 					<div class="panel-body">
 						<div class="container-fluid">
 							<div class="row">
-								<div class="col-sm-12">
+								<div class="col-sm-6">
 									<input type="text" class="form-control search-tag" placeholder="Buscar etiqueta" maxlength="20">
 								</div>
+								<div class="col-sm-2">
+									<button class="btn btn-default assign-button" style="display:none">
+										{{translate 'Asignar'}}
+										<span class="glyphicon glyphicon-plus-sign"></span>
+									</button>
+								</div>
+								{{#if tagError}}
+								<div class="col-sm-4">
+									<span class="label label-danger">
+										{{translate tagError}}
+									</span>
+								</div>
+								{{/if}}
 							</div>
 							<div class="row">
 								<div class="col-sm-12">
@@ -77,40 +90,6 @@
 				</div>
 			</div>
 		{{/if}}
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<input 
-					type="text" 
-					class="form-control tag-input" 
-					placeholder="{{translate 'Escribe aquí para crear una etiqueta'}}"
-					maxlength="15">
-				{{#if createTagError}}
-					<span class="label label-danger">
-						{{createTagError}}
-					</span>
-				{{/if}}
-			</div>
-			<div class="col-sm-6">
-				<select id="tagCategory" class="form-control tag-category">
-					{{#each tagCategories}}
-						<option value="{{value}}">{{text}}</option>
-					{{/each}}
-				</select>
-			</div>
-			{{#if creatingTag}}
-				<div class="col-sm-2">
-					{{> blueLoader}}
-				</div>
-			{{else}}
-				<div class="col-sm-3">
-					<button class="btn btn-info form-control create-tag"> 
-						{{translate 'Crear etiqueta'}}
-						<span class="glyphicon glyphicon-plus-sign"> </span>
-					</button>
-				</div>
-			{{/if}}
-
 		</div>
 		<div class="row">
 			<div class="col-sm-4">

@@ -73,7 +73,7 @@ Template.tagSelection.Utils = {
 
 		Meteor.call("searchTag", 
 			{userId:Meteor.userId(),
-			 text:text, assignedTags:this.getAssignedTagsIds()}, searchTagCallBack);
+			 text:text, assignedTags:this.getAssignedTags()}, searchTagCallBack);
 
 		function searchTagCallBack(error, data){
 			if(!error && data && data.length > 0){
@@ -84,10 +84,10 @@ Template.tagSelection.Utils = {
 		}
 	},
 
-	getAssignedTagsIds: function(){
+	getAssignedTags: function(){
 		var assignedTagsIds = [];
 		if(Session.get("assignedTags") && Session.get("assignedTags").length > 0){
-			assignedTagsIds = jQuery.map(Session.get("assignedTags"), function(x){ return x._id});
+			assignedTagsIds = jQuery.map(Session.get("assignedTags"), function(x){ return x.text});
 		}
 
 		return assignedTagsIds;

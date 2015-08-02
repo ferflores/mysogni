@@ -18,7 +18,7 @@ Meteor.methods({
 			}
 
 			//TODO: Display a max tags error instead of do nothing
-			if(assignedTags && assignedTags.length > 0 && assignedTags.length < 21){
+			if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
 
 				assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
 
@@ -82,6 +82,42 @@ Meteor.methods({
 		if(dreamExists){
 			Dreams.update({_id:dreamId}, {$set:{deleted:true}});
 		}
+	},
+
+	'updateDreamTags': function(data){
+		if(this.userId){
+			var dream = Dreams.findOne({_id: data.dreamId});
+
+			if(!dream){
+				throw new Error("no dream");
+			}
+
+			var assignedTags = data.assignedTags;
+
+			if(assignedTags){
+
+				if(assignedTags.length > 50){
+					throw new Error("Max assigned tags exeeded");
+				}
+
+				assignedTags = _.uniq(assignedTags, function(item, key, a) { 
+    					return item.text.toLowerCase();
+					});
+
+				if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
+
+					assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
+				}else{
+					assignedTags = [];
+				}
+
+				Dreams.update({_id:dream._id},{$set:{tags:assignedTags}});
+			}
+
+			return 1;
+		}
+
+		throw new Error("Not authorized");
 	}
 });
 
@@ -90,7 +126,8 @@ Meteor.dreamMethodsUtils = {
 
 		var userTags = UserTags.findOne({userId:userId});
 		var userTagsId = null;
-		var dreamTags = [];
+		var newTags = [];
+		var validTags = [];
 
 		if(!userTags){
 			userTags = {
@@ -99,7 +136,9 @@ Meteor.dreamMethodsUtils = {
 				updatedOn: new Date()
 			}
 			userTagsId = UserTags.insert(userTags);
+
 		}else{
+
 			userTagsId = userTags._id;
 		}
 
@@ -120,21 +159,25 @@ Meteor.dreamMethodsUtils = {
 				continue;
 			}
 
-			dreamTags.push({text:text});
-
 			var existingTag = false;
-			for (var j = 0; j < userTags.length; j++) {
-				if(assignedTags[i].text == userTags.text){
+
+			for (var j = 0; j < userTags.tags.length; j++) {
+				if(assignedTags[i].text.toLowerCase() 
+					== userTags.tags[j].text.toLowerCase()){
 					existingTag = true;
 					break;
 				}
 			};
 
 			if(!existingTag){
-				UserTags.update({_id:userTagsId}, {$push:{tags:{text:text, createdOn:new Date()}}});
+				UserTags.update({_id:userTagsId}, 
+					{$push:{tags: {text:assignedTags[i].text, addedOn:new Date()}}});
 			}
+
+			validTags.push({text:assignedTags[i].text, addedOn: new Date()});
 		};
 
-		return dreamTags;
+		return validTags;
+
 	}
 }
