@@ -1,6 +1,6 @@
 Template.faces.onCreated(function(){
 	if(!Session.get("dreamText")){
-		Router.go("home");
+		FlowRouter.go("/");
 	}
 });
 
@@ -12,7 +12,7 @@ Template.faces.rendered = function(){
 Template.faces.events({
 	'click .face': function(event){
 		Session.set('selectedFace', this);
-		Router.go('tags');
+		FlowRouter.go('/tags');
 	}
 });
 

@@ -1,10 +1,10 @@
 Template.tags.onCreated(function(){
 	if(!Session.get("dreamText")){
-		Router.go("home");
+		FlowRouter.go("/");
 	}
 
 	if(!Session.get('selectedFace')){
-		Router.go("faces");
+		FlowRouter.go("/faces");
 	}
 });
 
@@ -19,7 +19,7 @@ Template.tags.rendered = function(){
 Template.tags.events({
 
 	"click .edit-dream": function(){
-		Router.go("home");
+		FlowRouter.go("/");
 	},
 
 	"click .assigned-tag": function(){
@@ -94,7 +94,7 @@ Template.tags.Utils = {
 				Session.set("dreamText", null);
 				Session.set("assignedTags", []);
 				Session.set("selectedFace", null);
-				Router.go("dreamList",{}, {query:"new=1"});
+				FlowRouter.go("/dreamList",{}, {'new':"1"});
 			}
 		}
 	}

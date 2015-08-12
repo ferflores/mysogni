@@ -1,7 +1,7 @@
 Template.editFaces.rendered = function(){
 
 	if(!Session.get('editFace')){
-		Router.go('home');
+		FlowRouter.go('/');
 	}
 
 	Meteor.subscribe("dreamMoods");
@@ -33,12 +33,13 @@ Template.editFaces.events({
 				var viewDream = Session.get("viewDream");
 				viewDream.mood = mood;
 				Session.set("viewDream", viewDream);
-				Router.go("viewDream");
+
+				FlowRouter.go("/viewDream");
 			}
 		}
 	},
 	'click .cancel-edit': function(){
-		Router.go('viewDream');
+		FlowRouter.go('/viewDream');
 	}
 
 });

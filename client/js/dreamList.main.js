@@ -16,7 +16,7 @@ Template.dreamList.events({
 	},
 	"click .dream-div": function(){
 		Session.set("viewDream", this);
-		Router.go("viewDream");
+		FlowRouter.go("/viewDream");
 	},
 	"keyup .search-dream": function(){
 		if($(".search-dream").val().length < 20){
@@ -27,7 +27,7 @@ Template.dreamList.events({
 
 Template.dreamList.helpers({
 	"isNewDream": function(){
-		return Router.current().params.query.new;
+		return FlowRouter.getQueryParam('new');
 	},
 
 	"dreams": function(){

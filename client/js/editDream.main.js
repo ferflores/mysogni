@@ -1,7 +1,7 @@
 Template.editDream.rendered = function(){
 
 	if(!Session.get('editDream')){
-		Router.go('home');
+		FlowRouter.go('/');
 	}
 
 	$('#mainContent').velocity('transition.fadeIn', 1000);
@@ -31,7 +31,7 @@ Template.editDream.events({
 		Session.set("editDream", dream);
 	},
 	"click .cancel-edit":function(){
-		Router.go("viewDream");
+		FlowRouter.go("/viewDream");
 	},
 	"click .save-dream-text": function(event){
 		if(!Session.get("editDream").text || Session.get("editDream").text.length < 1){
@@ -49,7 +49,8 @@ Template.editDream.events({
 				var viewDream = Session.get("viewDream");
 				viewDream.text = Session.get('editDream').text;
 				Session.set("viewDream", viewDream);
-				Router.go("viewDream");
+				
+				FlowRouter.go("/viewDream");
 			}
 		}
 	}

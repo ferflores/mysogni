@@ -14,7 +14,7 @@ Template.navbar.events({
             if (err) {
                 throw new Meteor.Error("Logout failed");
             }else{
-            	Router.go("login");
+            	FlowRouter.go("/login");
             }
         })
 	},

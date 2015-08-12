@@ -3,7 +3,7 @@ Template.home.events({
 		if(!Session.get("dreamText") || Session.get("dreamText").length < 1){
 			//Empty error
 		}else{
-			Router.go("faces");
+			FlowRouter.go("/faces");
 		}
 	},
 	"keyup .dream-input": function(event){
@@ -14,7 +14,7 @@ Template.home.events({
 Template.home.rendered = function(){
 
 	if(!Meteor.userId()){
-		Router.go("login");
+		FlowRouter.go("/login");
 	}
 	
 	Meteor.subscribe("wMessages");

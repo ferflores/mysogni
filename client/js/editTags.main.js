@@ -1,6 +1,6 @@
 Template.editTags.onCreated(function(){
 	if(!Session.get('editDreamTags')){
-		Router.go('home');
+		FlowRouter.go('/');
 		return;
 	}
 
@@ -39,7 +39,7 @@ Template.editTags.events({
 	},
 
 	"click .cancel-edit": function(){
-		Router.go("viewDream");
+		FlowRouter.go("/viewDream");
 	},
 
 	"keyup .search-tag": function(){
@@ -206,7 +206,7 @@ Template.editTags.Utils = {
 				viewDream.tags = Session.get('newAssignedTags');
 				Session.set("viewDream", viewDream);
 				Session.set("newAssignedTags", []);
-				Router.go("viewDream");
+				FlowRouter.go("/viewDream");
 			}
 		}
 	}

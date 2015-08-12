@@ -14,7 +14,7 @@ Template.login.events({
             if (err) {
                 Session.set("loginError","Facebook login error");
             }else{
-            	Router.go('home');
+            	FlowRouter.go('/');
             }
         });
     },
@@ -33,6 +33,6 @@ Template.login.helpers({
 
 Template.login.rendered = function(){
 	if(Meteor.userId()){
-		Router.go('home');
+		FlowRouter.go('/');
 	}
 }

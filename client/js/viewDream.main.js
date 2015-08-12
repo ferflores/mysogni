@@ -1,7 +1,7 @@
 Template.viewDream.rendered = function(){
 
 	if(!Session.get('viewDream')){
-		Router.go('dreamList');
+		FlowRouter.go('/dreamList');
 	}
 
 }
@@ -14,19 +14,19 @@ Template.viewDream.helpers({
 
 Template.viewDream.events({
 	"click .go-back": function(){
-		Router.go("dreamList");
+		FlowRouter.go("/dreamList");
 	},
 	"click .edit-dream-text": function(){
 		Session.set("editDream", Session.get("viewDream"));
-		Router.go("editDream");
+		FlowRouter.go("/editDream");
 	},
 	"click .edit-face": function(){
 		Session.set("editFace", Session.get("viewDream"));
-		Router.go("editFaces");
+		FlowRouter.go("/editFaces");
 	},
 	"click .edit-tags": function(){
 		Session.set("editDreamTags", Session.get("viewDream"));
-		Router.go("editTags");
+		FlowRouter.go("/editTags");
 	},
 	"click .delete-dream": function(){
 		
@@ -41,7 +41,7 @@ Template.viewDream.events({
 
 		function deleteDreamCallback(err){
 			if(!err){
-				Router.go("dreamList");
+				FlowRouter.go("/dreamList");
 			}else{
 				Modals.errorModal("Error al guardar sueño",{error:err});
 			}

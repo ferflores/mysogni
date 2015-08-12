@@ -5,7 +5,6 @@
 # but you can also edit it by hand.
 
 meteor-platform
-iron:router
 velocityjs:velocityjs
 accounts-ui
 accounts-facebook
@@ -17,3 +16,5 @@ matteodem:easy-security
 pahans:reactive-modal
 mrt:moment
 msavin:mongol
+kadira:flow-router
+kadira:blaze-layout
