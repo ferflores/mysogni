@@ -12,7 +12,7 @@ Modals.errorModal = function (title, doc) {
 	    buttons: {
 	      "ok": {
 	        class: 'btn-info',
-	        label: 'Cancel'
+	        label: 'Ok'
 	      }
 	    },
 	    doc: doc

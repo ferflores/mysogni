@@ -63,7 +63,9 @@ var checkTranslations = function(){
 	  {lang: 'es', base_str: 'Asignar', new_str: 'Asignar'},
 	  {lang: 'en', base_str: 'Asignar', new_str: 'Assign'},
 	  {lang: 'es', base_str: 'Solo letras o números', new_str: 'Solo letras o números'},
-	  {lang: 'en', base_str: 'Solo letras o números', new_str: 'Only letters and numbers'}
+	  {lang: 'en', base_str: 'Solo letras o números', new_str: 'Only letters and numbers'},
+	  {lang: 'es', base_str: 'Conexión perdida', new_str: 'Se ha perdido la conexión, por ahora mysogni solo funciona con conexión a internet, puedes seguir trabajando con tus sueños una vez que el mensaje de offline en la parte inferior desaparezca :)'},
+	  {lang: 'en', base_str: 'Conexión perdida', new_str: 'Connection lost, sorry but currently mysogni cannot work without internet connection, once the offline message below disappear you will be able to continue your dream work :)'},
 	];
 	var i18n = Meteor.I18n();
 

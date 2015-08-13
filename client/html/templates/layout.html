@@ -8,5 +8,15 @@
 	<div id="bodyContent" class="container-fluid no-side-padding">
 		{{> Template.dynamic template=body}}
 	</div>
+
+	{{#if isOffline}}
+	<div class="sticky-offline-footer container-fluid">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2><span class="glyphicon glyphicon-warning-sign"></span>Offline</h2>
+			</div>
+		</div>
+	</div>
+	{{/if}}
 	
 </template>

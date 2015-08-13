@@ -7,7 +7,7 @@ Template.home.events({
 		}
 	},
 	"keyup .dream-input": function(event){
-		Session.set("dreamText", event.target.value);
+		Session.setPersistent("dreamText", event.target.value);
 	}
 });
 

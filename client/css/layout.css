@@ -1,0 +1,10 @@
+.sticky-offline-footer {
+    position: fixed; 
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background-color: rgb(255, 103, 48);
+    color:#F7F7F7;
+    border-top: 3px solid #767676;
+}
