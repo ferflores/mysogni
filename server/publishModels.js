@@ -16,6 +16,12 @@ Meteor.publish("dreamMoods", function(){
 	}
 });
 
+Meteor.publish("dreamDateOptions", function(){
+	if(this.userId){
+		return DreamDateOptions.find({}, {limit: 50});
+	}
+});
+
 Meteor.publish("dreams", function(limit){
 	if(this.userId){
 
@@ -28,6 +34,6 @@ Meteor.publish("dreams", function(limit){
 		}
 
 		return Dreams.find({$and:[{userId:this.userId}, {deleted:false}]}, 
-			{limit: limit, sort:{'createdOn':-1}});
+			{limit: limit, sort:{'dreamedOn':-1}});
 	}
 });

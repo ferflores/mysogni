@@ -4,6 +4,25 @@ Meteor.methods({
 			var dreamText = dream.text;
 			var dreamMood = dream.mood;
 			var assignedTags = dream.assignedTags || [];
+			var dreamDate = dream.dreamDate;
+			var relativeDate = false;
+
+			if(!dreamDate || !Date.parse(dreamDate.date)){
+				dreamDate = 
+				{
+					date: moment().format('YYYY/MM/DD'),
+					value: 0
+				};
+			}
+
+			var dateOption = DreamDateOptions.findOne({value: dreamDate.value});
+
+			if(!dateOption){
+				dreamDate.value = 0;
+				dreamDate.date = moment().format('YYYY/MM/DD');
+			}else{
+				relativeDate = dateOption.relative;
+			}
 
 			if(!dreamText || dreamText.length < 1){
 				throw new Error("No dream length");
@@ -26,13 +45,19 @@ Meteor.methods({
 				assignedTags = [];
 			}
 
+			if(Dreams.find({userId: this.userId}).count() > 5000){
+				throw new Error("Current max number of dreams reached");
+			}
+
 			Dreams.insert({
 				userId:this.userId,
 				text:dreamText,
 				mood:{moodId:dreamMood.value, file:dreamMood.file},
 				tags:assignedTags,
 				createdOn: new Date(),
-				dreamedOn: null,
+				dreamedOn: new Date(dreamDate.date),
+				relativeDate: relativeDate,
+				dreamDateOption: dreamDate.value,
 				deleted: false
 			});
 

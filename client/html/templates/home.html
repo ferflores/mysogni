@@ -7,6 +7,7 @@
 				</div>
 				<div class="col-sm-12">
 					<textarea 
+						style="resize:vertical" 
 						id="dreamText" 
 						name="dreamText" 
 						class="form-control dream-input" 
@@ -14,6 +15,20 @@
 						placeholder="{{translate 'Escribe aquí tu sueño'}}"
 						value={{dreamText}}></textarea>
 				</div>
+			</div>
+			<div class="row" style="margin-top:5px">
+				<div class="col-sm-4">
+					<select class="form-control" name="dateOptions" id="dateOptions">
+						{{#each dreamDateOptions}}
+							<option value="{{value}}">{{translate stringValue}}</option>
+						{{/each}}
+					</select>
+				</div>
+				<div class="col-sm-4" style="display:none" id="datepickerdiv">
+					<input type="text" class="form-control" id="datepicker" />
+				</div>
+			</div>
+			<div class="row" style="margin-top:15px">
 				<div class="col-sm-4">
 					<button 
 						class="btn btn-success form-control save-dream" {{disabledSaveDream}}>

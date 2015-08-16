@@ -5,7 +5,8 @@ Meteor.startup(function(){
 	TagCategories._ensureIndex({value:1}, {unique: true, dropDups: true});
 	DreamMoods._ensureIndex({value: 1}, {unique: true, dropDups: true});
 	Dreams._ensureIndex({userId:1});
-	Dreams._ensureIndex({createdOn:1});
+	Dreams._ensureIndex({createdOn:-11});
+	Dreams._ensureIndex({dreamedOn:-11});
 	Dreams._ensureIndex({deleted:1});
 
 	if (TagCategories.find({}).fetch().length < 1){
@@ -75,6 +76,51 @@ Meteor.startup(function(){
 			file:"scared.png",
 			value: 3,
 			stringValue: "scared"
+		});
+	}
+
+	if(DreamDateOptions.find({}).count() < 1){
+
+		DreamDateOptions.insert({
+			value: 0,
+			stringValue: "Hoy",
+			relative:false
+		});
+
+		DreamDateOptions.insert({
+			value: 1,
+			stringValue: "Ayer",
+			relative:false
+		});
+
+		DreamDateOptions.insert({
+			value: 2,
+			stringValue: "Fecha específica",
+			relative:false
+		});
+
+		DreamDateOptions.insert({
+			value: 3,
+			stringValue: "Semana pasada",
+			relative:false
+		});
+
+		DreamDateOptions.insert({
+			value: 4,
+			stringValue: "Hace meses",
+			relative:true
+		});
+
+		DreamDateOptions.insert({
+			value: 5,
+			stringValue: "Hace pocos años",
+			relative:true
+		});
+
+		DreamDateOptions.insert({
+			value: 6,
+			stringValue: "Hace muchos años",
+			relative:true
 		});
 	}
 });

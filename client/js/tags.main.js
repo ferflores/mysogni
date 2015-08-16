@@ -84,7 +84,8 @@ Template.tags.Utils = {
 			{
 				text:Session.get("dreamText"), 
 				mood: Session.get("selectedFace"), 
-				assignedTags: Session.get("assignedTags")
+				assignedTags: Session.get("assignedTags"),
+				dreamDate: Session.get('dreamDate')
 			}, createDreamCallBack);
 
 		function createDreamCallBack(error, data){
@@ -94,6 +95,7 @@ Template.tags.Utils = {
 				Session.set("dreamText", null);
 				Session.set("assignedTags", []);
 				Session.set("selectedFace", null);
+				Session.set("dreamDate", null);
 				FlowRouter.go("/dreamList",{}, {'new':"1"});
 			}
 		}

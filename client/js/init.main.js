@@ -9,18 +9,38 @@ Meteor.startup(function () {
 	var connStatus = Tracker.autorun(checkConnStatus);
 	var connectedOnce = false;
 	var warningGiven = false;
+	var checkingStatus = false;
+	var disconnectedOnce = false;
 
 	function checkConnStatus(){
 		if (Meteor.status().connected) {
 	        connectedOnce = true;
 	        Session.set("offline", false);
+	        if(disconnectedOnce){
+	        	checkingStatus = false;
+	        }
 	    } else {
-	    	Session.set("offline", true);
-	    	if(connectedOnce && !warningGiven){
-	    		warningGiven = true;
-	        	Modals.errorModal("Offline",{error:"Conexión perdida"});
+	    	if(connectedOnce){
+	    		disconnectedOnce = true;
+		    	if(!checkingStatus){
+		    		Meteor.reconnect();
+			    	checkingStatus = true;
+			    	setTimeout(recheckConnStatus, 6000);
+		    	}
 	    	}
 	    }
+	}
+
+	function recheckConnStatus(){
+		if(!Meteor.status().connected){
+			Session.set("offline", true);
+			if(!warningGiven){
+				warningGiven = true;
+		    	Modals.errorModal("Offline",{error:"Conexión perdida"});
+			}
+		}else{
+			checkingStatus = false;
+		}
 	}
 
 })();
