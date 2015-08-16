@@ -79,7 +79,9 @@ var checkTranslations = function(){
 		{lang: 'es', base_str: 'Hace pocos años', new_str: 'Hace pocos años'},
 		{lang: 'en', base_str: 'Hace pocos años', new_str: 'Few years ago'},
 		{lang: 'es', base_str: 'Hace muchos años', new_str: 'Hace muchos años'},
-		{lang: 'en', base_str: 'Hace muchos años', new_str: 'Many years ago'}
+		{lang: 'en', base_str: 'Hace muchos años', new_str: 'Many years ago'},
+		{lang: 'es', base_str: '(Fecha aproximada)', new_str: '(Fecha aproximada)'},
+		{lang: 'en', base_str: '(Fecha aproximada)', new_str: '(Approximate date)'}
 	];
 	var i18n = Meteor.I18n();
 

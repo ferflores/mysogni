@@ -14,9 +14,20 @@ Template.home.rendered = function(){
 		Session.set('dreamDate', {date:$('#datepicker').val(), value:2});
 	});
 
-	$('#datepicker').val(moment().format('YYYY/MM/DD'));
+	if(Session.get('dreamDate')){
+		$('#datepicker').val(Session.get('dreamDate').date);
+		$('#dateOptions').val(Session.get('dreamDate').value);
 
-	Session.set('dreamDate', {date:$('#datepicker').val(), value:0});
+		if(Session.get('dreamDate').value == "2"){
+			$("#datepickerdiv").show();
+		}
+		
+	}else{
+
+		$('#datepicker').val(moment().format('YYYY/MM/DD'));
+
+		Session.set('dreamDate', {date:$('#datepicker').val(), value:0});
+	}
 
 }
 
@@ -70,7 +81,7 @@ Template.home.events({
 				break;
 		}
 
-		Session.set('dreamDate', {date:newDate, value:dateValue});
+		Session.set('dreamDate', {date:newDate, value:parseInt(dateValue)});
 	}
 });
 
