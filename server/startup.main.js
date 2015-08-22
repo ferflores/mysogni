@@ -61,21 +61,51 @@ Meteor.startup(function(){
 		});
 
 		DreamMoods.insert({
-			file:"sad.png",
+			file:"verysad.png",
 			value: 1,
 			stringValue: "sad"
 		});
 
 		DreamMoods.insert({
-			file:"angry.png",
+			file:"mad.png",
 			value: 2,
-			stringValue: "angry"
+			stringValue: "mad"
 		});
 
 		DreamMoods.insert({
 			file:"scared.png",
 			value: 3,
 			stringValue: "scared"
+		});
+
+		DreamMoods.insert({
+			file:"excited.png",
+			value: 4,
+			stringValue: "excited"
+		});
+
+		DreamMoods.insert({
+			file:"fun.png",
+			value: 5,
+			stringValue: "fun"
+		});
+
+		DreamMoods.insert({
+			file:"inlove.png",
+			value: 6,
+			stringValue: "inlove"
+		});
+
+		DreamMoods.insert({
+			file:"nostalgic.png",
+			value: 7,
+			stringValue: "nostalgic"
+		});
+
+		DreamMoods.insert({
+			file:"confused.png",
+			value: 8,
+			stringValue: "confused"
 		});
 	}
 
