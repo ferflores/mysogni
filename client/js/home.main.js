@@ -2,6 +2,7 @@ Template.home.rendered = function(){
 
 	if(!Meteor.userId()){
 		FlowRouter.go("/login");
+		return;
 	}
 	
 	Meteor.subscribe("wMessages");

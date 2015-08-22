@@ -1,6 +1,7 @@
 Template.faces.onCreated(function(){
 	if(!Session.get("dreamText")){
 		FlowRouter.go("/");
+		return;
 	}
 });
 

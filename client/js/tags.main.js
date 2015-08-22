@@ -1,10 +1,12 @@
 Template.tags.onCreated(function(){
 	if(!Session.get("dreamText")){
 		FlowRouter.go("/");
+		return;
 	}
 
 	if(!Session.get('selectedFace')){
 		FlowRouter.go("/faces");
+		return;
 	}
 });
 

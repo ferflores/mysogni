@@ -2,6 +2,7 @@ Template.editFaces.rendered = function(){
 
 	if(!Session.get('editFace')){
 		FlowRouter.go('/');
+		return;
 	}
 
 	Meteor.subscribe("dreamMoods");

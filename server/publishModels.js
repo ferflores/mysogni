@@ -34,6 +34,6 @@ Meteor.publish("dreams", function(limit){
 		}
 
 		return Dreams.find({$and:[{userId:this.userId}, {deleted:false}]}, 
-			{limit: limit, sort:{'dreamedOn':-1}});
+			{limit: limit, sort:{'createdOn':-1}});
 	}
 });

@@ -1,6 +1,11 @@
 <template name="viewDream">
 	<div class="container">
 		<div class="row">
+			<div class="col-sm-4">
+				<span class="label label-primary">
+					{{dreamedOn}} {{#if viewDream.relativeDate}}{{translate '(Fecha aproximada)'}}{{/if}}
+				</span>
+			</div>
 			<div class="col-sm-12">
 				<div class="panel panel-default">
 					<div class="panel-heading">
@@ -8,7 +13,6 @@
 						<span>{{translate 'Tu sueño'}}</span>
 					</div>
 					<div class="panel-body">
-
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-xs-9">
