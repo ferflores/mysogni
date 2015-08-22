@@ -1,67 +1,78 @@
 Meteor.methods({
 	'saveDream' : function(dream){
 		if(this.userId){
-			var dreamText = dream.text;
-			var dreamMood = dream.mood;
-			var assignedTags = dream.assignedTags || [];
-			var dreamDate = dream.dreamDate;
-			var relativeDate = false;
+			try{
+				var dreamText = dream.text;
+				var dreamMood = dream.mood;
+				var assignedTags = dream.assignedTags || [];
+				var dreamDate = dream.dreamDate;
+				var relativeDate = false;
 
-			if(!dreamDate || !Date.parse(dreamDate.date)){
-				dreamDate = 
-				{
-					date: moment().format('YYYY/MM/DD'),
-					value: 0
-				};
+				if(!dreamDate || !Date.parse(dreamDate.date)){
+					dreamDate = 
+					{
+						date: moment().format('YYYY/MM/DD'),
+						value: 0
+					};
+				}
+
+				var dateOption = DreamDateOptions.findOne({value: dreamDate.value});
+
+				if(!dateOption){
+					dreamDate.value = 0;
+					dreamDate.date = moment().format('YYYY/MM/DD');
+				}else{
+					relativeDate = dateOption.relative;
+				}
+
+				if(!dreamText || dreamText.length < 1){
+					throw new Error("No dream length");
+				}
+
+				if(!dreamMood || !dreamMood._id){
+					throw new Error("Dream mood required");
+				}
+
+				if(!DreamMoods.findOne({_id:dreamMood._id})){
+					throw new Error("Invalid dream mood "+ dreamMood._id);
+				}
+
+				//TODO: Display a max tags error instead of do nothing
+				if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
+
+					assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
+
+				}else{
+					assignedTags = [];
+				}
+
+				if(Dreams.find({userId: this.userId}).count() > 5000){
+					throw new Error("Current max number of dreams reached");
+				}
+
+				Dreams.insert({
+					userId:this.userId,
+					text:dreamText,
+					mood:{moodId:dreamMood.value, file:dreamMood.file},
+					tags:assignedTags,
+					createdOn: new Date(),
+					dreamedOn: new Date(dreamDate.date),
+					relativeDate: relativeDate,
+					dreamDateOption: dreamDate.value,
+					deleted: false
+				});
+
+				return 1;
+
+			}catch(ex){
+
+				Email.send({
+					from: "mysogni@ferflores.net",
+					to: "ferflores@gmail.com",
+					subject: "Error at saveDream",
+					text: ex.message
+					});
 			}
-
-			var dateOption = DreamDateOptions.findOne({value: dreamDate.value});
-
-			if(!dateOption){
-				dreamDate.value = 0;
-				dreamDate.date = moment().format('YYYY/MM/DD');
-			}else{
-				relativeDate = dateOption.relative;
-			}
-
-			if(!dreamText || dreamText.length < 1){
-				throw new Error("No dream length");
-			}
-
-			if(!dreamMood || !dreamMood._id){
-				throw new Error("Dream mood required");
-			}
-
-			if(!DreamMoods.findOne({_id:dreamMood._id})){
-				throw new Error("Invalid dream mood "+ dreamMood._id);
-			}
-
-			//TODO: Display a max tags error instead of do nothing
-			if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
-
-				assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
-
-			}else{
-				assignedTags = [];
-			}
-
-			if(Dreams.find({userId: this.userId}).count() > 5000){
-				throw new Error("Current max number of dreams reached");
-			}
-
-			Dreams.insert({
-				userId:this.userId,
-				text:dreamText,
-				mood:{moodId:dreamMood.value, file:dreamMood.file},
-				tags:assignedTags,
-				createdOn: new Date(),
-				dreamedOn: new Date(dreamDate.date),
-				relativeDate: relativeDate,
-				dreamDateOption: dreamDate.value,
-				deleted: false
-			});
-
-			return 1;
 		}
 
 		throw new Error("Not authorized");
@@ -72,12 +83,25 @@ Meteor.methods({
 			throw new Error("Not authorized");
 		}
 
-		if(!dreamData.text || dreamData.text.length < 1){
-			throw new Error("Empty dream text: " + dreamData.dreamId);
-		}
+		try{
 
-		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
-			{$set:{text:dreamData.text}});
+			if(!dreamData.text || dreamData.text.length < 1){
+				throw new Error("Empty dream text: " + dreamData.dreamId);
+			}
+
+			Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
+				{$set:{text:dreamData.text}});
+
+		}catch(ex){
+			Email.send({
+				from: "mysogni@ferflores.net",
+				to: "ferflores@gmail.com",
+				subject: "Error at updateDreamText",
+				text: ex.message
+				});
+
+			throw new Error("Error updating dream text");
+		}
 	},
 
 	'updateDreamMood': function(dreamData){
@@ -85,17 +109,31 @@ Meteor.methods({
 			throw new Error("Not authorized");
 		}
 
-		if(!dreamData.dreamMoodId){
-			throw new Error("Empty dream mood: " + dreamData.dreamId);
-		}
+		try{
 
-		var newDreamMood = DreamMoods.findOne({_id:dreamData.dreamMoodId});
-		if(!newDreamMood){
-			throw new Error("Invalid dream mood "+ dreamMood._id);
-		}
+			if(!dreamData.dreamMoodId){
+				throw new Error("Empty dream mood: " + dreamData.dreamId);
+			}
 
-		Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
-			{$set:{mood:newDreamMood}});
+			var newDreamMood = DreamMoods.findOne({_id:dreamData.dreamMoodId});
+			if(!newDreamMood){
+				throw new Error("Invalid dream mood "+ dreamMood._id);
+			}
+
+			Dreams.update({$and:[{_id:dreamData.dreamId}, {userId:this.userId}]},
+				{$set:{mood:newDreamMood}});
+
+		}catch(ex){
+
+			Email.send({
+				from: "mysogni@ferflores.net",
+				to: "ferflores@gmail.com",
+				subject: "Error at updateDreamMood",
+				text: ex.message
+				});
+
+			throw new Error("Error updating dream mood");
+		}
 	},
 
 	'deleteDream':function(dreamId){
@@ -103,43 +141,67 @@ Meteor.methods({
 			throw new Error("Not authorized");
 		}
 
-		var dreamExists = Dreams.findOne({_id:dreamId}) != null;
-		if(dreamExists){
-			Dreams.update({_id:dreamId}, {$set:{deleted:true}});
+		try{
+
+			var dreamExists = Dreams.findOne({_id:dreamId}) != null;
+			if(dreamExists){
+				Dreams.update({_id:dreamId}, {$set:{deleted:true}});
+			}
+		}catch(ex){
+			Email.send({
+				from: "mysogni@ferflores.net",
+				to: "ferflores@gmail.com",
+				subject: "Error at deleteDream",
+				text: ex.message
+				});
+
+			throw new Error("Error deleting dream");
 		}
 	},
 
 	'updateDreamTags': function(data){
 		if(this.userId){
-			var dream = Dreams.findOne({_id: data.dreamId});
+			try{
 
-			if(!dream){
-				throw new Error("no dream");
-			}
+				var dream = Dreams.findOne({_id: data.dreamId});
 
-			var assignedTags = data.assignedTags;
-
-			if(assignedTags){
-
-				if(assignedTags.length > 50){
-					throw new Error("Max assigned tags exeeded");
+				if(!dream){
+					throw new Error("no dream");
 				}
 
-				assignedTags = _.uniq(assignedTags, function(item, key, a) { 
-    					return item.text.toLowerCase();
+				var assignedTags = data.assignedTags;
+
+				if(assignedTags){
+
+					if(assignedTags.length > 50){
+						throw new Error("Max assigned tags exeeded");
+					}
+
+					assignedTags = _.uniq(assignedTags, function(item, key, a) { 
+	    					return item.text.toLowerCase();
+						});
+
+					if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
+
+						assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
+					}else{
+						assignedTags = [];
+					}
+
+					Dreams.update({_id:dream._id},{$set:{tags:assignedTags}});
+				}
+
+				return 1;
+			}catch(ex){
+				Email.send({
+					from: "mysogni@ferflores.net",
+					to: "ferflores@gmail.com",
+					subject: "Error at updateDreamTags",
+					text: ex.message
 					});
 
-				if(assignedTags && assignedTags.length > 0 && assignedTags.length < 50){
-
-					assignedTags = Meteor.dreamMethodsUtils.validateAndUpdateUserTags(this.userId, assignedTags);
-				}else{
-					assignedTags = [];
-				}
-
-				Dreams.update({_id:dream._id},{$set:{tags:assignedTags}});
+				throw new Error("Error updating tags")
 			}
-
-			return 1;
 		}
 
 		throw new Error("Not authorized");
