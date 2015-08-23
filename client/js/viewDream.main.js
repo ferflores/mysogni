@@ -52,7 +52,7 @@ Template.viewDream.events({
 			if(!err){
 				FlowRouter.go("/dreamList");
 			}else{
-				Modals.errorModal("Error al guardar sueño",{error:err});
+				Modals.popupMessage("Error al guardar sueño",{error:err});
 			}
 		}
 	}

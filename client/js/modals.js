@@ -1,9 +1,9 @@
 Modals = {};
 
 
-Modals.errorModal = function (title, doc) {
-	var errorModalData = {
-	    template: Template.errorModal,
+Modals.popupMessage = function (title, doc) {
+	var popupMessageData = {
+	    template: Template.popupMessage,
 	    title: title,
 	    removeOnHide: true,
 	    modalDialogClass: "share-modal-dialog",
@@ -18,7 +18,7 @@ Modals.errorModal = function (title, doc) {
 	    doc: doc
 	  }
 
-	  var rd = ReactiveModal.initDialog(errorModalData);
+	  var rd = ReactiveModal.initDialog(popupMessageData);
 
 	  rd.show();
 }

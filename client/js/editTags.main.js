@@ -200,7 +200,7 @@ Template.editTags.Utils = {
 
 		function createDreamCallBack(error, data){
 			if(error){
-				Modals.errorModal("Error al guardar tags",{error:error});
+				Modals.popupMessage("Error al guardar tags",{error:error});
 			}else{
 				var viewDream = Session.get("viewDream");
 				viewDream.tags = Session.get('newAssignedTags');

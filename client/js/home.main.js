@@ -30,6 +30,17 @@ Template.home.rendered = function(){
 		Session.set('dreamDate', {date:$('#datepicker').val(), value:0});
 	}
 
+	if(!Cookie.get('welcomePopupSeen')){
+		Meteor.call("isFirstLogin", null, firstLoginCallback);
+
+		function firstLoginCallback(err, isFirstLogin){
+			if(isFirstLogin){
+				Modals.popupMessage("Message", {error: "Bienvenido"});
+				Cookie.set("welcomePopupSeen", true);
+			}
+		}
+	};
+
 }
 
 Template.home.events({

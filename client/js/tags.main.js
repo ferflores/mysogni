@@ -92,7 +92,7 @@ Template.tags.Utils = {
 
 		function createDreamCallBack(error, data){
 			if(error){
-				Modals.errorModal("Error al guardar sueño",{error:error});
+				Modals.popupMessage("Error al guardar sueño",{error:error});
 			}else{
 				Session.set("dreamText", null);
 				Session.set("assignedTags", []);

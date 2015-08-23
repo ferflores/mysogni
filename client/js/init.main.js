@@ -36,7 +36,7 @@ Meteor.startup(function () {
 			Session.set("offline", true);
 			if(!warningGiven){
 				warningGiven = true;
-		    	Modals.errorModal("Offline",{error:"Conexión perdida"});
+		    	Modals.popupMessage("Offline",{error:"Conexión perdida"});
 			}
 		}else{
 			checkingStatus = false;
