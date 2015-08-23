@@ -222,6 +222,7 @@ Meteor.dreamMethodsUtils = {
 				tags: [],
 				updatedOn: new Date()
 			}
+
 			userTagsId = UserTags.insert(userTags);
 
 		}else{

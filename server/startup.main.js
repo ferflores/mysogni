@@ -1,12 +1,10 @@
 Meteor.startup(function(){
 	UserTags._ensureIndex({userId:1}, {unique: true, dropDups: true});
-	UserTags._ensureIndex({text:1}, {unique: true, dropDups: true});
-	UserTags._ensureIndex({'tags.text':1}, {unique: true, dropDups: true});
 	TagCategories._ensureIndex({value:1}, {unique: true, dropDups: true});
 	DreamMoods._ensureIndex({value: 1}, {unique: true, dropDups: true});
 	Dreams._ensureIndex({userId:1});
-	Dreams._ensureIndex({createdOn:-11});
-	Dreams._ensureIndex({dreamedOn:-11});
+	Dreams._ensureIndex({createdOn:-1});
+	Dreams._ensureIndex({dreamedOn:-1});
 	Dreams._ensureIndex({deleted:1});
 
 	if (TagCategories.find({}).fetch().length < 1){
