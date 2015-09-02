@@ -95,7 +95,7 @@ Template.tagSelection.Utils = {
 
 	assignTag: function(text){
 
-		if(text.replace(/^[a-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
+		if(text.replace(/^[A-Za-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
 			Session.set("tagError", "Solo letras o números");
 			return;
 		}

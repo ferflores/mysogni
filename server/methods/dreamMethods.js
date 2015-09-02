@@ -243,7 +243,7 @@ Meteor.dreamMethodsUtils = {
 				continue;
 			}
 
-			if(text.replace(/^[a-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
+			if(text.replace(/^[A-Za-z0-9-_\sáéíóúÁÉÍÓÚ]+$/g,"").length > 0){
 				continue;
 			}
 
