@@ -109,7 +109,7 @@ Meteor.startup(function(){
 		});
 
 		DreamMoods.insert({
-			file:"what.png",
+			file:"confused.png",
 			value: 8,
 			stringValue: "confused",
 			active:true
