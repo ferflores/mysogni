@@ -55,55 +55,71 @@ Meteor.startup(function(){
 		DreamMoods.insert({
 			file:"happy.png",
 			value: 0,
-			stringValue: "happy"
+			stringValue: "happy",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"verysad.png",
 			value: 1,
-			stringValue: "sad"
+			stringValue: "sad",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"mad.png",
 			value: 2,
-			stringValue: "mad"
+			stringValue: "mad",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"scared.png",
 			value: 3,
-			stringValue: "scared"
+			stringValue: "scared",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"excited.png",
 			value: 4,
-			stringValue: "excited"
+			stringValue: "excited",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"fun.png",
 			value: 5,
-			stringValue: "fun"
+			stringValue: "fun",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"inlove.png",
 			value: 6,
-			stringValue: "inlove"
+			stringValue: "inlove",
+			active:true
 		});
 
 		DreamMoods.insert({
 			file:"nostalgic.png",
 			value: 7,
-			stringValue: "nostalgic"
+			stringValue: "nostalgic",
+			active: false
 		});
 
 		DreamMoods.insert({
-			file:"confused.png",
+			file:"what.png",
 			value: 8,
-			stringValue: "confused"
+			stringValue: "confused",
+			active:true
+		});
+
+		DreamMoods.insert({
+			file:"noemotion.png",
+			value: 8,
+			stringValue: "noemotion",
+			active:true
 		});
 	}
 

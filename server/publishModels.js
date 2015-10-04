@@ -12,7 +12,7 @@ Meteor.publish("tagCategories", function(){
 
 Meteor.publish("dreamMoods", function(){
 	if(this.userId){
-		return DreamMoods.find({}, {limit: 50});
+		return DreamMoods.find({active:true}, {limit: 50});
 	}
 });
 
