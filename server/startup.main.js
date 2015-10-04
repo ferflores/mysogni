@@ -117,8 +117,15 @@ Meteor.startup(function(){
 
 		DreamMoods.insert({
 			file:"noemotion.png",
-			value: 8,
+			value: 9,
 			stringValue: "noemotion",
+			active:true
+		});
+
+		DreamMoods.insert({
+			file:"impressed.png",
+			value: 10,
+			stringValue: "impressed",
 			active:true
 		});
 	}
