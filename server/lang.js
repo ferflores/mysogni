@@ -83,7 +83,9 @@ var checkTranslations = function(){
 		{lang: 'es', base_str: '(Fecha aproximada)', new_str: '(Fecha aproximada)'},
 		{lang: 'en', base_str: '(Fecha aproximada)', new_str: '(Approximate date)'},
 		{lang: 'es', base_str: 'Bienvenido', new_str: 'Bienvenido a mysogni, esta primer versión funciona como un diario de sueños, estamos trabajando para agregar futuras funcionalidades como estadísticas y compatir tus sueños en redes sociales etiquetando amigos si lo deseas, no dejes de archivar tus sueños usando mysogni, los resultados pueden sorprenderte :)'},
-		{lang: 'en', base_str: 'Bienvenido', new_str: 'Welcome to mysogni, this first version works as a dream diary, We are working on new features as statistics and social network stuff, keep using mysogni to archive your dreams, the results could impress you :)'}
+		{lang: 'en', base_str: 'Bienvenido', new_str: 'Welcome to mysogni, this first version works as a dream diary, We are working on new features as statistics and social network stuff, keep using mysogni to archive your dreams, the results could impress you :)'},
+		{lang: 'es', base_str: 'Nuevo sueño', new_str: 'Nuevo sueño'},
+		{lang: 'en', base_str: 'Nuevo sueño', new_str: 'New dream'}
 	];
 	var i18n = Meteor.I18n();
 

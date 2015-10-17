@@ -27,5 +27,6 @@ Template.navbar.events({
 		}
 
 		Cookie.set('lang', Meteor.I18n().lang());
+		location.reload();
 	}
 });

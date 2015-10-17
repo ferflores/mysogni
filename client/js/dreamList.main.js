@@ -1,13 +1,10 @@
 Template.dreamList.rendered = function(){
 
-	Session.setDefault('dreamsLimit', 5);
+	Template.dreamList.utils.currentLimit = 5; 
 	
+	Meteor.subscribe("dreams", Template.dreamList.utils.currentLimit);
 
-	Template.dreamList.utils.autorunHandler = Deps.autorun(function() {
-    	Meteor.subscribe("dreams", Session.get('dreamsLimit'));
-  	});
-
-	$(window).scroll(Template.dreamList.utils.showMoreDreams);
+	console.log(Template.dreamList.utils.currentLimit);
 }
 
 Template.dreamList.events({
@@ -32,10 +29,10 @@ Template.dreamList.helpers({
 
 	"dreams": function(){
 		var textSearch = Session.get("dreamTextSearch") || "";
-		return Dreams.find({text:new RegExp(textSearch)});
+		return Dreams.find({text:new RegExp(textSearch)}, {sort:{'createdOn':-1}});
 	},
 	"moreResults": function(){
-		return !(Dreams.find({}).count() < Session.get("dreamsLimit"));
+		return (Dreams.find({}).count() < Counts.get('dreamsCount'));
 	},
 	"noDreams": function(){
 		return Dreams.find({}).fetch().length < 1;
@@ -44,32 +41,16 @@ Template.dreamList.helpers({
 
 Template.dreamList.utils = {
 	showMoreDreams: function() {
-	    var threshold, target = $("#showMoreResults");
-	    if (!target.length) return;
-	 
-	    threshold = $(window).scrollTop() + $(window).height() - target.height();
 
-	    if (target.offset().top <= threshold+10) {
-	        if (!target.data("visible")) {
-	            target.data("visible", true);
-	            Session.set("dreamsLimit",
-	                Session.get("dreamsLimit") + 5);
-	        }
-	    } else {
-	        if (target.data("visible")) {
-	            target.data("visible", false);
-	        }
-	    }
+		Template.dreamList.utils.currentLimit += 5;
+
+		Meteor.subscribe("dreams", Template.dreamList.utils.currentLimit);
 	},
 
-	autorunHandler: null
+	currentLimit: 5
 }
 
 Template.dreamList.onDestroyed(function(){
-	if(Template.dreamList.utils.autorunHandler){
-		Template.dreamList.utils.autorunHandler.stop();
-		$(window).scroll(function(){});
-	}
-
+	Template.dreamList.utils.currentLimit = 5;
 	Session.set("dreamTextSearch", null);
 });

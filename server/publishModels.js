@@ -33,6 +33,9 @@ Meteor.publish("dreams", function(limit){
 			limit = 10000;
 		}
 
+		Counts.publish(this, 'dreamsCount', 
+			Dreams.find({$and:[{userId:this.userId}, {deleted:false}]}), { noReady: true, nonReactive: true });
+
 		return Dreams.find({$and:[{userId:this.userId}, {deleted:false}]}, 
 			{limit: limit, sort:{'createdOn':-1}});
 	}
